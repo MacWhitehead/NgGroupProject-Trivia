@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -42,6 +42,7 @@ export class QuestionsService {
     //Build url suffix
     let apiUrl: string = `https://opentdb.com/api.php?${amount}${category}${difficulty}${type}`;
     console.log(apiUrl)
+    
     return this.http.get(apiUrl);
   }
 

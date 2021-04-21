@@ -1,4 +1,12 @@
 <mat-card>
     <button *ngFor="let player of [1,2,3,4]" mat-button (click)="addPlayer(player)">Add Player {{player}}</button>
-    <button mat-button>Start</button>
+    <button mat-button (click)="startGame()">Start</button>
+</mat-card>
+
+<mat-card *ngIf="isGameStarted">
+    <mat-card-header>
+        <mat-card-title>{{activeQuestion.question}}</mat-card-title>
+        <mat-card-subtitle>{{activePlayer.username}}</mat-card-subtitle>
+        <button mat-button (click)="nextQuestion()">Next</button>
+    </mat-card-header>
 </mat-card>

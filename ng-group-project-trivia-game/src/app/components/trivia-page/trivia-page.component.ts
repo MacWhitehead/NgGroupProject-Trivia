@@ -41,14 +41,20 @@ export class TriviaPageComponent implements OnInit {
   getQuestions(params: any): void{
     this.questionsService.getQuestions(params)
     .subscribe((response: any) => {
-      this.questions = response.results;
+      console.log(response.results)
+      this.questions = response.results
     })
   }
-  //changes isGameStarted to true so long as there is a player, html then renders cards and questions.
+  //changes isGameStarted to true so long as there is a player for rendering questions, sets first questions and player
   startGame(): void{
     if (this.players.length > 0){
       this.isGameStarted = true;
     }
+    this.activeQuestion = this.questions[0]
+    this.activePlayer = this.players[0]
   }
 
+  nextQuestion(): void{
+    this.activeQuestion = this.questions[this.questions.indexOf(this.activeQuestion) + 1]
+  }
 }
