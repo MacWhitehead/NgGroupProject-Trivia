@@ -3,11 +3,11 @@ export interface Player {
     id: string,
     stats: {
         gamesPlayed: number,
-        gamesWon: number,
-        gamesLost: number,
+        gamesWon: any[],
+        gamesLost: any[],
         questionsAnswered: number,
         questionsRight: number,
-        questionWrong: number,
+        questionsWrong: number,
         bestCategory: string,
         worstCategory: string
     }
