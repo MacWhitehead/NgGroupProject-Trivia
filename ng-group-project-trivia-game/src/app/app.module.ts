@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TriviaPageComponent } from './components/trivia-page/trivia-page.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 //Mats
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -18,12 +20,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
-    TriviaPageComponent 
+    TriviaPageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatGridListModule, 
+    MatFormFieldModule, 
+    MatIconModule, 
+    MatRadioModule, 
+    MatProgressSpinnerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

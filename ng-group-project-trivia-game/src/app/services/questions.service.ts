@@ -15,7 +15,7 @@ export class QuestionsService {
     let difficulty: string;
     let type: string;
 
-    if (params.amount !== '') {
+    if (params.amount !== ''){
       amount = 'amount=' + params.amount + '&';
     } else {
       amount = '';
@@ -41,8 +41,8 @@ export class QuestionsService {
 
     //Build url suffix
     let apiUrl: string = `https://opentdb.com/api.php?${amount}${category}${difficulty}${type}`;
-
+    console.log(apiUrl)
     return this.http.get(apiUrl);
   }
-  
+
 }
