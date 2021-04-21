@@ -1,1 +1,4 @@
-<p>hello</p>
+<mat-card>
+    <button *ngFor="let player of [1,2,3,4]" mat-button (click)="addPlayer(player)">Add Player {{player}}</button>
+    <button mat-button>Start</button>
+</mat-card>
