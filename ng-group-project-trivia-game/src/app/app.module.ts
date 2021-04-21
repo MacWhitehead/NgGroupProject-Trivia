@@ -18,7 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
-    TriviaPageComponent
+    TriviaPageComponent 
   ],
   imports: [
     BrowserModule,
