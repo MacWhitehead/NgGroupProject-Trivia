@@ -8,7 +8,7 @@ import { Player } from '../../interfaces/player'
 })
 export class TriviaPageComponent implements OnInit {
   activeQuestion: {};
-  activePlayer: {}
+  activePlayer: {};
   players: Player[] = [];
   questions: any[] = [];
   isGameStarted: boolean;
@@ -16,10 +16,11 @@ export class TriviaPageComponent implements OnInit {
   constructor(public questionsService: QuestionsService) { }
 
   ngOnInit(): void {
-
+    //getQuestions service logic currently depends on having each property defined in the parameter. "any" value is take as empty string
     this.getQuestions({amount: 10, category: '', difficulty: '', type: ''})
+    this.isGameStarted = false;
   }
-
+  //Pushes a player object based on Player interface layout to players variable
   addPlayer(p: string): void{
     this.players.push({
       username: p,
@@ -35,14 +36,19 @@ export class TriviaPageComponent implements OnInit {
           worstCategory: '',
       }
     })
-    console.log(this.players)
   }
-
+  //runs the getQuestions function from questionsService and saves the results to the questions variable array
   getQuestions(params: any): void{
     this.questionsService.getQuestions(params)
     .subscribe((response: any) => {
       this.questions = response.results;
     })
+  }
+  //changes isGameStarted to true so long as there is a player, html then renders cards and questions.
+  startGame(): void{
+    if (this.players.length > 0){
+      this.isGameStarted = true;
+    }
   }
 
 }
