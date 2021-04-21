@@ -1,43 +1,41 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
-import { AngularFireAuth } from "@angular/fire/auth";
+import { AngularFireAuth } from '@angular/fire/auth';
+import { User } from '../interfaces/user';
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AuthService {
+  usersRef: AngularFireList<any>;      // Reference to users list, Its an Observable
+  userRef: AngularFireObject<any>;     // Reference to user object, Its an Observable too
 
   constructor(
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
-  ) { }
-
-  // Sign in with Google
+    private afAuth: AngularFireAuth,
+    public db: AngularFireDatabase,
+  ) {}
+  
   GoogleAuthLogin() {
-    return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
-  }  
+    return this.afAuth
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((result) => {
+        console.log(`${result.user.displayName} has successfully logged in!`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   GoogleAuthSignup() {
-    return this.AuthSignup(new firebase.auth.GoogleAuthProvider());
+    return this.afAuth
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((result) => {
+        console.log('You have been successfully signed up!');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
-
-  // Auth logic to run auth providers
-  AuthLogin(provider) {
-    return this.afAuth.signInWithPopup(provider)
-    .then((result) => {
-        console.log('You have been successfully logged in!')
-    }).catch((error) => {
-        console.log(error)
-    })
-  }
-
-  AuthSignup(provider) {
-    return this.afAuth.signInWithPopup(provider)
-    .then((result) => {
-        console.log('You have been successfully signed up!')
-    }).catch((error) => {
-        console.log(error)
-    })
-  }
-
 }

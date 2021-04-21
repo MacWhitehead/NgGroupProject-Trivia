@@ -1,5 +1,7 @@
 export interface User {
-  Username: string;
+  uid: string;
+  email: string;
+  displayName: string;
   totalGamesPlayed: number;
   totalGamesWon: number;
   totalGamesLost: number;
