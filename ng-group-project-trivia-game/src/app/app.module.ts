@@ -15,17 +15,27 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
     AppComponent,
     TriviaPageComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatGridListModule, 
+    MatFormFieldModule, 
+    MatIconModule, 
+    MatRadioModule, 
+    MatProgressSpinnerModule, 
+    MatGridListModule, 
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

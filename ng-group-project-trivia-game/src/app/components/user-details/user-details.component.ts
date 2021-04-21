@@ -6,7 +6,10 @@ import { Player } from 'src/app/interfaces/player';
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss'],
 })
+
 export class UserDetailsComponent {
+  winLossPercent: number = 0;
+  correctIncorrectPercent: number = 0;
   exampleUser: Player[] = [
     {
     username: 'user1',
@@ -16,7 +19,7 @@ export class UserDetailsComponent {
       gamesWon: [3],
       gamesLost: [1],
       questionsAnswered: 40,
-      questionsRight: 30,
+      questionsRight: 20,
       questionsWrong: 10,
       bestCategory: 'Mythology',
       worstCategory: 'Politics',
@@ -24,7 +27,28 @@ export class UserDetailsComponent {
     }
   ]
 
+  colors = [
+    {color: '#FF0000'},
+    {color: '#FFEA00'},
+    {color: '#91FF00'},
+    {color: '#00A6FF'},
+  ];
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getPercentages();
+    console.log(this.colors[0].color)
+  }
+
+  
+  getPercentages() {
+    let wins = this.exampleUser[0].stats.gamesWon;
+    let totalGames = this.exampleUser[0].stats.gamesPlayed;
+    let questionTotal = this.exampleUser[0].stats.questionsAnswered;
+    let correctAnswers = this.exampleUser[0].stats.questionsRight;
+    this.winLossPercent = (wins[0]/totalGames) * 100;
+    this.correctIncorrectPercent = (correctAnswers/questionTotal) * 100;
+    console.log(this.winLossPercent, this.correctIncorrectPercent)
+  }
+
 }
