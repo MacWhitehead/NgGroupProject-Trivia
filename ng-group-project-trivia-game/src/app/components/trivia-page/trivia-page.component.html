@@ -5,7 +5,7 @@
 
 <mat-card *ngIf="isGameStarted">
     <mat-card-header>
-        <mat-card-title>{{activeQuestion.question}}</mat-card-title>
+        <mat-card-title [innerHTML]="activeQuestion.question"></mat-card-title>
         <mat-card-subtitle>{{activePlayer.username}}</mat-card-subtitle>
         <button mat-button (click)="nextQuestion()">Next</button>
     </mat-card-header>
