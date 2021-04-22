@@ -14,7 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './page1/page1.module';
 
 // Service
-import { AuthService } from './services/auth.service'
+import { AuthService } from './page1/auth.service'
 
 @NgModule({
   declarations: [AppComponent],

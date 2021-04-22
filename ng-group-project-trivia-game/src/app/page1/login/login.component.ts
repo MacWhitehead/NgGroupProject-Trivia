@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../auth.service';
 import { map } from 'rxjs/operators';
 
 
@@ -33,12 +33,12 @@ export class LoginComponent implements OnInit {
       .then(() => {
         // console.log(this.authService.host)
         this.host = this.authService.host
-        this.emails = this.users.map(user => user.email)
+        // this.emails = this.users.map(user => user.email)
       })
       .then(() => {
-        if (this.emails.includes(this.host.email)) {
-          
-        } 
+        // if (this.emails.includes(this.host.email)) {
+          console.log(this.users)
+        // } else console.log('create an account homie')
       })
 
   }
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getUsers().subscribe(users => {
-      // console.log(users)
+      this.users = users;
     })
   }
 
