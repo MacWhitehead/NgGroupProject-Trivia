@@ -1,6 +1,5 @@
-<mat-card main-container>
-  <p>Nav bar goes here</p>
-  <h2>{{ exampleUser[0].username }} Stats</h2>
+<mat-card>
+  <h1 class="title">{{ exampleUser[0].username }} Stats</h1>
 
   <table>
     <tr>
@@ -9,27 +8,36 @@
       <th>Highlights</th>
     </tr>
     <tr>
-        <td>Games Played: {{ exampleUser[0].stats.gamesPlayed }}</td>
-        <td>Questions Answered: {{ exampleUser[0].stats.questionsAnswered }}</td>
-        <td>Best category: {{ exampleUser[0].stats.bestCategory }} <br>
-            Worst category: {{ exampleUser[0].stats.worstCategory }}
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <mat-progress-spinner value="{{ winLossPercent }}" mode="determinate" class='spinner1'>
-            </mat-progress-spinner>
-            <div style="position:relative; top: -45px; left: 50px;">{{winLossPercent}}%</div>
-          </td>
-          <td>
+      <td>
+        Games Played: {{ exampleUser[0].stats.gamesPlayed }} <br />
+        Win rate: {{ winLossPercent }}%
             <mat-progress-spinner
-              value="{{ correctIncorrectPercent }}"
-              mode="determinate"
-              class="spinner2"
-            >
-            </mat-progress-spinner>
-          </td>
-          <td></td>
+            value="{{ winLossPercent }}"
+            mode="determinate"
+            class="spinner1"
+            style="margin: 0 auto"
+          >
+          </mat-progress-spinner>
+      </td>
+      <td>
+        Questions Answered: {{ exampleUser[0].stats.questionsAnswered }} <br />
+        Percent of questions correct: {{correctIncorrectPercent}}%
+        <mat-progress-spinner
+          style="margin: 0 auto"
+          value="{{ correctIncorrectPercent }}"
+          mode="determinate"
+          class="spinner2"
+        >
+        </mat-progress-spinner>
+      </td>
+      <td class="highlights">
+        <span class="boldText">Best category:</span>
+        <br />
+        {{ exampleUser[0].stats.bestCategory }} <br /> <br>
+        <span class="boldText">Worst category:</span>
+         <br />
+        {{ exampleUser[0].stats.worstCategory }}
+      </td>
     </tr>
   </table>
 </mat-card>
