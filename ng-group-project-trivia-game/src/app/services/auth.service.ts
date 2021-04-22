@@ -1,21 +1,28 @@
 import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';
 import { User } from '../interfaces/user';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  usersRef: AngularFireList<any>;      // Reference to users list, Its an Observable
-  userRef: AngularFireObject<any>;     // Reference to user object, Its an Observable too
+  usersCollection: AngularFirestoreCollection<User>
+  users: Observable<any[]>
 
   constructor(
+    public afs: AngularFirestore,
     private afAuth: AngularFireAuth,
-    public db: AngularFireDatabase,
-  ) {}
+  ) {
+    this.users = this.afs.collection('users').valueChanges() 
+  }
+
+  getUsers() {
+    return this.users
+  }
   
   GoogleAuthLogin() {
     return this.afAuth

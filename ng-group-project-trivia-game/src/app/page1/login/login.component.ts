@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
 
@@ -9,16 +10,16 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  usersRef: any;
+  users: Observable<any>;
 
   constructor(
     public authService: AuthService,
-  ) { 
-    this.usersRef = authService.db.list('users')
-  }
+  ) { }
 
-  ngOnInit(): void {
-    this.usersRef = this.authService.db.list('users');
+  ngOnInit() {
+    this.authService.getUsers().subscribe(users => {
+      console.log(users)
+    })
   }
 
 }

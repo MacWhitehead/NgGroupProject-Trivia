@@ -7,6 +7,7 @@ export const environment = {
   firebase: {
     apiKey: 'AIzaSyDzmdn046hP9kasUS0wMhUYn02vF3aGlfQ',
     authDomain: 'ng-group-project-trivia.firebaseapp.com',
+    // databaseURL: 'https://console.firebase.google.com',
     projectId: 'ng-group-project-trivia',
     storageBucket: 'ng-group-project-trivia.appspot.com',
     messagingSenderId: '963629401263',
