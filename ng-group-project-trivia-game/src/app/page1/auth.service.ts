@@ -7,15 +7,16 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { User } from '../interfaces/user';
-import { Observable } from 'rxjs';
+import { Observable, pipe} from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   usersCollection: AngularFirestoreCollection<User>;
-  users: Observable<any[]>;
-  emails: String[];
+  users: Observable<any>;
   host: User = {
     displayName: '',
     email: '',

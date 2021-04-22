@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from '../auth.service';
 import { map } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   users: User[];
@@ -29,28 +28,24 @@ export class LoginComponent implements OnInit {
   };
 
   loggingIn() {
-    this.authService.GoogleAuthLogin()
+    this.authService
+      .GoogleAuthLogin()
       .then(() => {
-        // console.log(this.authService.host)
-        this.host = this.authService.host
-        // this.emails = this.users.map(user => user.email)
+        this.host = this.authService.host;
       })
       .then(() => {
-        // if (this.emails.includes(this.host.email)) {
-          console.log(this.users)
-        // } else console.log('create an account homie')
+        if (this.emails.includes(this.host.email)) {
+          console.log("It's here!!!")
+        } else console.log('Create an account homie')
       })
-
   }
 
-  constructor(
-    public authService: AuthService,
-  ) { }
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
-    this.authService.getUsers().subscribe(users => {
+    this.authService.getUsers().subscribe((users: any) => {
       this.users = users;
+      this.emails = this.users.map(user => user.email);
     })
   }
-
 }
