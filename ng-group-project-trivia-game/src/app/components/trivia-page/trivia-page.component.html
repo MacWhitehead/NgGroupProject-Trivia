@@ -1,30 +1,50 @@
 <mat-card>
-    <button *ngFor="let player of [1,2,3,4]" mat-button (click)="addPlayer(player)">Add Player {{player}}</button>
-    <button mat-button (click)="startGame()">Start</button>
+  <button
+    *ngFor="let player of [1, 2, 3, 4]"
+    mat-button
+    (click)="addPlayer(player)"
+  >
+    Add Player {{ player }}
+  </button>
+  <button mat-button (click)="startGame()">Start</button>
 </mat-card>
 
 <mat-card *ngIf="isGameStarted">
-    <mat-card-header>
-        <mat-card-title [innerHTML]="activeQuestion.question"></mat-card-title>
-        <mat-card-subtitle>Player: {{activePlayer.username}}</mat-card-subtitle>
-        <mat-card-subtitle>Category: {{activeQuestion.category}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <table *ngIf="activeQuestion.type === 'multiple'">
-            <tr *ngFor="let answer of activeQuestion.answersArray">
-                <td><mat-card [style.background]="amISelected(answer) ? 'lightBlue':'yellow'" (click)="setSelected(answer)"[innerHTML]='answer.value'></mat-card></td>
-            </tr>
-        </table>
-        <table *ngIf="activeQuestion.type === 'boolean'">
-            <tr *ngFor="let answer of activeQuestion.answersArray">
-                <td><mat-card [style.background]="amISelected(answer) ? 'lightBlue':'yellow'" (click)="setSelected(answer)"[innerHTML]='answer.value'></mat-card></td>
-            </tr>
-        </table>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-button *ngIf="canSubmit" (click)="nextQuestion()">Submit Answer</button>
-    </mat-card-actions>
-    
+  <mat-card-header>
+    <mat-card-title [innerHTML]="activeQuestion.question"></mat-card-title>
+    <mat-card-subtitle>Player: {{ activePlayer.username }}</mat-card-subtitle>
+    <mat-card-subtitle
+      >Category: {{ activeQuestion.category }}</mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content>
+    <table *ngIf="activeQuestion.type === 'multiple'">
+      <tr *ngFor="let answer of activeQuestion.answersArray">
+        <td>
+          <mat-card
+            [style.background]="amISelected(answer) ? 'blue' : 'white'"
+            (click)="setSelected(answer)"
+            [innerHTML]="answer.value"
+          ></mat-card>
+          <span *ngIf="isAnswerSubmitted()" [innerHTML]="answer.correct ? 'CORRECT': 'WRONG'"></span>
+        </td>
+      </tr>
+    </table>
+    <table *ngIf="activeQuestion.type === 'boolean'">
+      <tr *ngFor="let answer of activeQuestion.answersArray">
+        <td>
+          <mat-card
+            [style.background]="amISelected(answer) ? 'blue' : 'white'"
+            (click)="setSelected(answer)"
+            [innerHTML]="answer.value"
+          ></mat-card>
+        </td>
+      </tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button *ngIf="canSubmit" (click)="submitAnswer(selectedAnswer)">
+      Submit Answer
+    </button>
+  </mat-card-actions>
 </mat-card>
-
-

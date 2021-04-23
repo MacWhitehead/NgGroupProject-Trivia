@@ -8,6 +8,7 @@ import { GameControllerService } from '../../services/game-controller.service';
   styleUrls: ['./trivia-page.component.scss'],
 })
 export class TriviaPageComponent implements OnInit {
+  
   canSubmit: boolean;
   selectedAnswer: any;
   activeQuestion: any;
@@ -57,4 +58,14 @@ export class TriviaPageComponent implements OnInit {
   amISelected(a: any){
     return this.gameService.amISelected(a);
   }
+  
+  submitAnswer(a: any): void {
+    this.gameService.submitAnswer(a);
+  }
+
+  isAnswerSubmitted(){
+    console.log(this.gameService.isAnswerSubmitted())
+    return this.gameService.isAnswerSubmitted();
+  }
+  
 }
