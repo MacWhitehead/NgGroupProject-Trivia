@@ -6,6 +6,8 @@ import { Player } from '../interfaces/player';
   providedIn: 'root',
 })
 export class GameControllerService {
+  canSubmit: boolean;
+  selectedAnswer: any;
   activeQuestion: any;
   activePlayer: any;
   players: Player[] = [];
@@ -109,6 +111,19 @@ export class GameControllerService {
       ];
       this.activePlayer = nextPlayer;
       this.activeQuestion = nextQuestion;
+    }
+  }
+
+  setSelected(a: any): void {
+    this.selectedAnswer = a;
+    this.canSubmit = true;
+  }
+
+  amISelected(a: any){
+    if (this.selectedAnswer === a){
+      return true
+    } else {
+      return false
     }
   }
 }

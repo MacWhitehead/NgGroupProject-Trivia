@@ -8,6 +8,8 @@ import { GameControllerService } from '../../services/game-controller.service';
   styleUrls: ['./trivia-page.component.scss'],
 })
 export class TriviaPageComponent implements OnInit {
+  canSubmit: boolean;
+  selectedAnswer: any;
   activeQuestion: any;
   activePlayer: any;
   players: Player[] = [];
@@ -44,5 +46,15 @@ export class TriviaPageComponent implements OnInit {
     this.gameService.nextQuestion();
     this.activePlayer = this.gameService.activePlayer;
     this.activeQuestion = this.gameService.activeQuestion;
+  }
+
+  setSelected(a: any): void{
+    this.gameService.setSelected(a);
+    this.selectedAnswer = this.gameService.selectedAnswer;
+    this.canSubmit = this.gameService.canSubmit;
+  }
+
+  amISelected(a: any){
+    return this.gameService.amISelected(a);
   }
 }

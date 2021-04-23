@@ -9,12 +9,12 @@ export class QuestionsService {
   constructor(private http: HttpClient) {}
 
   getQuestions(params: any): Observable<any> {
-    //Check if param is empty or not
+    
     let amount: string;
     let category: string;
     let difficulty: string;
     let type: string;
-
+    //Check if param is empty or not
     if (params.amount !== ''){
       amount = 'amount=' + params.amount + '&';
     } else {

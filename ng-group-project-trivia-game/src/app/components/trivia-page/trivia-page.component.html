@@ -12,12 +12,12 @@
     <mat-card-content>
         <table *ngIf="activeQuestion.type === 'multiple'">
             <tr *ngFor="let answer of activeQuestion.answersArray">
-                <td [innerHTML]='answer.value'></td>
+                <td><mat-card [style.background]="amISelected(answer) ? 'lightBlue':'yellow'" (click)="setSelected(answer)"[innerHTML]='answer.value'></mat-card></td>
             </tr>
         </table>
         <table *ngIf="activeQuestion.type === 'boolean'">
             <tr *ngFor="let answer of activeQuestion.answersArray">
-                <td [innerHTML]='answer.value'></td>
+                <td><mat-card [style.background]="amISelected(answer) ? 'lightBlue':'yellow'" (click)="setSelected(answer)"[innerHTML]='answer.value'></mat-card></td>
             </tr>
         </table>
     </mat-card-content>
@@ -26,3 +26,5 @@
     </mat-card-actions>
     
 </mat-card>
+
+
