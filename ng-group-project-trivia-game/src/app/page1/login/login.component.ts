@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from '../auth.service';
-import { map } from 'rxjs/operators';
+import { HostService } from '../../services/host.service'
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
       .then(() => {
         if (this.emails.includes(this.authService.host.email)) {
           // this.host = this.authService.host;
-          console.log(`It's here!!! ${this.authService.host.displayName}`)
+          console.log(`There you are :) ${this.authService.host.displayName}`)
         } else {
           console.log('Create an account homie')
           this.authService.clearHost()
@@ -40,16 +40,20 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  constructor(public authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    public hostService: HostService
+    ) {}
 
   ngOnInit() {
+
     this.authService.getUsers().subscribe((users: any) => {
       this.users = users;
       this.emails = this.users.map(user => user.email);
+      this.hostService.allPlayers = users
+      // console.log(this.hostService.allPlayers)
     })
+
   }
 }
 
-
-// Both buttons validating and functioning perfectly. 
-// Begin work on the main service
