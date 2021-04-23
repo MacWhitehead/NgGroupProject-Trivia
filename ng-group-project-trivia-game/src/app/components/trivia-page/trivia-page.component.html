@@ -38,6 +38,7 @@
             (click)="setSelected(answer)"
             [innerHTML]="answer.value"
           ></mat-card>
+          <span *ngIf="isAnswerSubmitted()" [innerHTML]="answer.correct ? 'CORRECT': 'WRONG'"></span>
         </td>
       </tr>
     </table>
@@ -46,5 +47,6 @@
     <button mat-button *ngIf="canSubmit" (click)="submitAnswer(selectedAnswer)">
       Submit Answer
     </button>
+    <button mat-button *ngIf="isAnswerSubmitted()" (click)="nextQuestion()">Next</button>
   </mat-card-actions>
 </mat-card>

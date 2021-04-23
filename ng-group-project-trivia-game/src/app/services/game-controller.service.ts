@@ -89,6 +89,7 @@ export class GameControllerService {
       console.log('First');
       this.activeQuestion = this.activeQuestion;
       this.activePlayer = this.activePlayer;
+      
     } else if (
       /* ----- IF LAST PLAYER IN ARRAY AND NOT LAST QUESTION, NEXT PLAYER IS FIRST PLAYER ----- */
       currentPlayer === lastPlayer &&
@@ -100,6 +101,7 @@ export class GameControllerService {
         this.questions.indexOf(this.activeQuestion) + 1
       ];
       this.activeQuestion = nextQuestion;
+      
     } else if (
       /* ----- IF NOT LAST PLAYER IN ARRAY AND NOT LAST QUESTION SET NEXT PLAYER AND NEXT QUESTION ----- */
       currentPlayer !== lastPlayer &&
@@ -113,6 +115,7 @@ export class GameControllerService {
       this.activePlayer = nextPlayer;
       this.activeQuestion = nextQuestion;
     }
+    this.resetTurn();
   }
 
   setSelected(a: any): void {
@@ -137,5 +140,11 @@ export class GameControllerService {
     if (this.answerSubmitted == true) {
       return true;
     } else return false;
+  }
+
+  resetTurn(){
+    this.answerSubmitted = false;
+    this.selectedAnswer = {}; 
+    this.canSubmit = false;
   }
 }

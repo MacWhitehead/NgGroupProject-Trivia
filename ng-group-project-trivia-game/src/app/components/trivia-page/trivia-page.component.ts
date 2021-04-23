@@ -68,4 +68,8 @@ export class TriviaPageComponent implements OnInit {
     return this.gameService.isAnswerSubmitted();
   }
   
+  resetTurn(){
+    this.selectedAnswer = this.gameService.selectedAnswer;
+    this.canSubmit = this.gameService.canSubmit;
+  }
 }
