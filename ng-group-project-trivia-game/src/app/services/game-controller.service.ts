@@ -6,6 +6,7 @@ import { Player } from '../interfaces/player';
   providedIn: 'root',
 })
 export class GameControllerService {
+  turnNumber: number;
   answerSubmitted: boolean;
   canSubmit: boolean;
   selectedAnswer: any;
@@ -36,11 +37,14 @@ export class GameControllerService {
   }
   //runs the getQuestions function from questionsService and saves the results to the questions variable array
   getQuestions(params: any): void {
-    this.questionsService.getQuestions(params).subscribe((response: any) => {
-      console.log(response.results);
-      response.results = this.combineAnswers(response.results);
-      this.questions = response.results;
-    });
+    this.questions.length = params.playerCount
+    for (let player = 0; player < params.playerCount; player++){
+      this.questionsService.getQuestions(params).subscribe((response: any) => {
+        response.results = this.combineAnswers(response.results);
+        this.questions[player] = response.results;
+        console.log(this.questions);
+      });
+    }
   }
   //loops through all questions and puts correct answers into an array, shuffles them and adds the shuffled array as a property to each question
   combineAnswers(questions: any) {
@@ -68,50 +72,61 @@ export class GameControllerService {
     if (this.players.length > 0) {
       this.isGameStarted = true;
     }
-    this.activeQuestion = this.questions[0];
     this.activePlayer = this.players[0];
+    let indexOfPlayer = this.players.indexOf(this.activePlayer);
+    this.activeQuestion = this.questions[indexOfPlayer][0];
+    this.turnNumber = 0;
+    console.log(`active player = ${this.activePlayer}`)
+    console.log(`active question = ${this.activeQuestion}`)
   }
 
   nextQuestion(): void {
     /* ----- VARIABLES FOR NEXTQUESTION LOGIC START ----- */
-    let currentQuestion = this.questions[
-      this.questions.indexOf(this.activeQuestion)
-    ];
-    let lastQuestion = this.questions[this.questions.length - 1];
-    let currentPlayer = this.players[this.players.indexOf(this.activePlayer)];
+    ///IS COMPLETELY BROKEN NEED TO DO THE FOLLOWING 
+    /* 
+    1. Take into account which turn it is. Turn needs to be defined by the index of the active question in the player array
+    2. Needs logic to say if active player is 4, increase the current question value + 1. Use a flag to signify what turn it is in this service. 
+    3. 
+    */
+
+
+  
+    let currentPlayerIndex = this.players.indexOf(this.activePlayer)
+    let currentQuestionIndex = this.questions[currentPlayerIndex].indexOf(this.activeQuestion);
+    let currentQuestion = this.questions[currentPlayerIndex][this.turnNumber]
+    let lastQuestionForTurn = this.questions[this.players.length - 1][this.turnNumber];
+    let lastQuestionForGame = this.questions[this.players.length-1][this.questions[0].length - 1]
+    let currentPlayer = this.players[currentPlayerIndex];
     let lastPlayer = this.players[this.players.length - 1];
     let nextQuestion;
     let nextPlayer;
     /* ----- VARIABLES FOR NEXTQUESTION LOGIC END ----- */
 
     /* ----- IF LAST QUESTION DO NOTHING FOR NOW ----- */
-    if (currentQuestion === lastQuestion) {
+    if (currentQuestion === lastQuestionForGame && currentPlayer === lastPlayer) {
       console.log('First');
       this.activeQuestion = this.activeQuestion;
       this.activePlayer = this.activePlayer;
       
     } else if (
-      /* ----- IF LAST PLAYER IN ARRAY AND NOT LAST QUESTION, NEXT PLAYER IS FIRST PLAYER ----- */
+      /* ----- IF LAST PLAYER IN ARRAY AND NOT LAST QUESTION IN GAME, NEXT PLAYER IS FIRST PLAYER ----- */
       currentPlayer === lastPlayer &&
-      currentQuestion !== lastQuestion
+      currentQuestion === lastQuestionForTurn
     ) {
       console.log('Second');
       this.activePlayer = this.players[0];
-      nextQuestion = this.questions[
-        this.questions.indexOf(this.activeQuestion) + 1
-      ];
+      this.turnNumber += 1;
+      nextQuestion = this.questions[0][this.turnNumber];
       this.activeQuestion = nextQuestion;
       
     } else if (
       /* ----- IF NOT LAST PLAYER IN ARRAY AND NOT LAST QUESTION SET NEXT PLAYER AND NEXT QUESTION ----- */
       currentPlayer !== lastPlayer &&
-      currentQuestion !== lastQuestion
+      currentQuestion !== lastQuestionForTurn
     ) {
       console.log('Third');
-      nextPlayer = this.players[this.players.indexOf(this.activePlayer) + 1];
-      nextQuestion = this.questions[
-        this.questions.indexOf(this.activeQuestion) + 1
-      ];
+      nextPlayer = this.players[currentPlayerIndex + 1];
+      nextQuestion = this.questions[currentPlayerIndex + 1][this.turnNumber];
       this.activePlayer = nextPlayer;
       this.activeQuestion = nextQuestion;
     }
