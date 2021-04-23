@@ -22,7 +22,7 @@
         </table>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-button (click)="nextQuestion()">Next</button>
+        <button mat-button *ngIf="canSubmit" (click)="nextQuestion()">Submit Answer</button>
     </mat-card-actions>
     
 </mat-card>

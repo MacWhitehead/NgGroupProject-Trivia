@@ -41,19 +41,19 @@ export class TriviaPageComponent implements OnInit {
     this.activePlayer = this.gameService.activePlayer;
     this.isGameStarted = this.gameService.isGameStarted;
   }
-
+  //runs nextQuestion from game-controller service and pulls the active player and active question values
   nextQuestion(): void {
     this.gameService.nextQuestion();
     this.activePlayer = this.gameService.activePlayer;
     this.activeQuestion = this.gameService.activeQuestion;
   }
-
+  //runs setSelected from game-controller service and pulls the selectedAnswer and canSubmit values
   setSelected(a: any): void{
     this.gameService.setSelected(a);
     this.selectedAnswer = this.gameService.selectedAnswer;
     this.canSubmit = this.gameService.canSubmit;
   }
-
+  //used to change color of answers based on if amISelected() returns true or false
   amISelected(a: any){
     return this.gameService.amISelected(a);
   }
