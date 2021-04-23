@@ -50,21 +50,24 @@ export class TriviaPageComponent implements OnInit {
   }
   //runs setSelected from game-controller service and pulls the selectedAnswer and canSubmit values
   setSelected(a: any): void{
+    if (!this.isAnswerSubmitted()){
     this.gameService.setSelected(a);
     this.selectedAnswer = this.gameService.selectedAnswer;
     this.canSubmit = this.gameService.canSubmit;
+    }
+    
   }
   //used to change color of answers based on if amISelected() returns true or false
   amISelected(a: any){
     return this.gameService.amISelected(a);
   }
   
-  submitAnswer(a: any): void {
+  submitAnswer(a: any, p: Player[]): void {
     this.gameService.submitAnswer(a);
   }
 
   isAnswerSubmitted(){
-    console.log(this.gameService.isAnswerSubmitted())
+    
     return this.gameService.isAnswerSubmitted();
   }
   

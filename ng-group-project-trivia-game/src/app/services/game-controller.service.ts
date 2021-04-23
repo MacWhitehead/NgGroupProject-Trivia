@@ -136,7 +136,7 @@ export class GameControllerService {
   }
 
   isAnswerSubmitted() {
-    console.log(this.answerSubmitted)
+   
     if (this.answerSubmitted == true) {
       return true;
     } else return false;
@@ -146,5 +146,9 @@ export class GameControllerService {
     this.answerSubmitted = false;
     this.selectedAnswer = {}; 
     this.canSubmit = false;
+  }
+
+  calculateScore(){
+    
   }
 }
