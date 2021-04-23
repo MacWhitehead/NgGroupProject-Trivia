@@ -13,31 +13,31 @@ import { map } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
   users: User[];
   emails: String[];
-  host: User = {
-    displayName: '',
-    email: '',
-    photoURL: '',
-    totalGamesPlayed: 0,
-    totalGamesWon: 0,
-    totalGamesLost: 0,
-    totalQuestionsAnswered: 0,
-    totalRightAnswers: 0,
-    totalWrongAnswers: 0,
-    bestCategory: '',
-    worstCategory: '',
-  };
 
   loggingIn() {
     this.authService
       .GoogleAuthLogin()
       .then(() => {
-        this.host = this.authService.host;
+        if (this.emails.includes(this.authService.host.email)) {
+          // this.host = this.authService.host;
+          console.log(`It's here!!! ${this.authService.host.displayName}`)
+        } else {
+          console.log('Create an account homie')
+          this.authService.clearHost()
+        }
       })
-      .then(() => {
-        if (this.emails.includes(this.host.email)) {
-          console.log("It's here!!!")
-        } else console.log('Create an account homie')
-      })
+  }
+
+  signingUp() {
+    this.authService.GoogleAuthSignup()
+    .then(() => {
+      if (this.emails.includes(this.authService.host.email)) {
+        console.log('You already have an account bruh')
+        this.authService.clearHost()
+      } else {
+        this.authService.addUser()
+      }
+    })
   }
 
   constructor(public authService: AuthService) {}
@@ -49,3 +49,7 @@ export class LoginComponent implements OnInit {
     })
   }
 }
+
+
+// Both buttons validating and functioning perfectly. 
+// Begin work on the main service

@@ -33,11 +33,28 @@ export class AuthService {
 
   constructor(public afs: AngularFirestore, private afAuth: AngularFireAuth) {
     this.users = this.afs.collection('users').valueChanges();
+    this.usersCollection = this.afs.collection('users')
   }
 
   getUsers() {
     return this.users;
   }
+
+  clearHost() {
+    this.host.displayName = ''
+    this.host.email = ''
+    this.host.photoURL = ''
+  }
+
+  addUser() {
+    this.usersCollection.add(this.host)
+    console.log(`New user added to database :) ${this.host.displayName}`)
+    this.getUsers().subscribe((data) => {
+      console.log(data)
+    })
+  }
+
+
 
   GoogleAuthLogin() {
     return this.afAuth
@@ -58,7 +75,11 @@ export class AuthService {
     return this.afAuth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((result) => {
-        console.log('You have been successfully signed up!');
+        this.host.displayName = result.user.displayName;
+        this.host.email = result.user.email;
+        this.host.photoURL = result.user.photoURL;
+        // console.log(`You have been successfully signed up!`);
+        // console.log(this.host)
       })
       .catch((error) => {
         console.log(error);
