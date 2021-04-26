@@ -76,25 +76,17 @@ export class GameControllerService {
     let indexOfPlayer = this.players.indexOf(this.activePlayer);
     this.activeQuestion = this.questions[indexOfPlayer][0];
     this.turnNumber = 0;
-    console.log(`active player = ${this.activePlayer}`)
-    console.log(`active question = ${this.activeQuestion}`)
   }
 
   nextQuestion(): void {
-    /* ----- VARIABLES FOR NEXTQUESTION LOGIC START ----- */
-    ///IS COMPLETELY BROKEN NEED TO DO THE FOLLOWING 
-    /* 
-    1. Take into account which turn it is. Turn needs to be defined by the index of the active question in the player array
-    2. Needs logic to say if active player is 4, increase the current question value + 1. Use a flag to signify what turn it is in this service. 
-    3. 
-    */
-
-
-  
+   /* ----- VARIABLES FOR NEXTQUESTION LOGIC START ----- */
+    
     let currentPlayerIndex = this.players.indexOf(this.activePlayer)
-    let currentQuestionIndex = this.questions[currentPlayerIndex].indexOf(this.activeQuestion);
+
     let currentQuestion = this.questions[currentPlayerIndex][this.turnNumber]
+    
     let lastQuestionForTurn = this.questions[this.players.length - 1][this.turnNumber];
+ 
     let lastQuestionForGame = this.questions[this.players.length-1][this.questions[0].length - 1]
     let currentPlayer = this.players[currentPlayerIndex];
     let lastPlayer = this.players[this.players.length - 1];
@@ -118,6 +110,7 @@ export class GameControllerService {
       this.turnNumber += 1;
       nextQuestion = this.questions[0][this.turnNumber];
       this.activeQuestion = nextQuestion;
+      this.resetTurn();
       
     } else if (
       /* ----- IF NOT LAST PLAYER IN ARRAY AND NOT LAST QUESTION SET NEXT PLAYER AND NEXT QUESTION ----- */
@@ -129,8 +122,10 @@ export class GameControllerService {
       nextQuestion = this.questions[currentPlayerIndex + 1][this.turnNumber];
       this.activePlayer = nextPlayer;
       this.activeQuestion = nextQuestion;
+      this.resetTurn();
     }
     this.resetTurn();
+    
   }
 
   setSelected(a: any): void {
@@ -147,11 +142,13 @@ export class GameControllerService {
   }
 
   submitAnswer(a: any): void {
-    this.answerSubmitted = true;
+    console.log(this.selectedAnswer)
+    if (this.selectedAnswer !== ""){
+      this.answerSubmitted = true;
+    }
   }
 
   isAnswerSubmitted() {
-   
     if (this.answerSubmitted == true) {
       return true;
     } else return false;
@@ -159,7 +156,7 @@ export class GameControllerService {
 
   resetTurn(){
     this.answerSubmitted = false;
-    this.selectedAnswer = {}; 
+    this.selectedAnswer = ""; 
     this.canSubmit = false;
   }
 

@@ -21,7 +21,7 @@ export class TriviaPageComponent implements OnInit {
 
   ngOnInit(): void {
     //getQuestions service logic currently depends on having each property defined in the parameter. "any" value is take as empty string
-    this.getQuestions({ amount: 10, category: '', difficulty: '', type: '', playerCount: 2 });
+    this.getQuestions({ amount: 10, category: '', difficulty: '', type: '', playerCount: 4 });
     this.isGameStarted = false;
   }
   //Pushes a player object based on Player interface layout to players variable
@@ -48,6 +48,7 @@ export class TriviaPageComponent implements OnInit {
     this.gameService.nextQuestion();
     this.activePlayer = this.gameService.activePlayer;
     this.activeQuestion = this.gameService.activeQuestion;
+    this.resetTurn();
   }
   //runs setSelected from game-controller service and pulls the selectedAnswer and canSubmit values
   setSelected(a: any): void{
@@ -68,7 +69,6 @@ export class TriviaPageComponent implements OnInit {
   }
 
   isAnswerSubmitted(){
-    
     return this.gameService.isAnswerSubmitted();
   }
   

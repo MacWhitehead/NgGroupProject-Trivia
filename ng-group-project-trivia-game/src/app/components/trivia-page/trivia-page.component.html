@@ -34,7 +34,7 @@
       <tr *ngFor="let answer of activeQuestion.answersArray">
         <td>
           <mat-card
-            [style.background]="amISelected(answer) ? 'blue' : 'white'"
+            [style.background]="amISelected(answer) ? 'rgba(14, 217, 253, 0.452)' : 'white'"
             (click)="setSelected(answer)"
             [innerHTML]="answer.value"
           ></mat-card>
