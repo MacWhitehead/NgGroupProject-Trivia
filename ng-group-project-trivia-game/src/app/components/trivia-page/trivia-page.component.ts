@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuestionsService } from '../../services/questions.service';
 import { Player } from '../../interfaces/player';
 import { GameControllerService } from '../../services/game-controller.service';
+import { PlayerService } from '../../services/players.service'
 @Component({
   selector: 'app-trivia-page',
   templateUrl: './trivia-page.component.html',
@@ -17,7 +18,7 @@ export class TriviaPageComponent implements OnInit {
   questions: any[] = [];
   isGameStarted: any;
 
-  constructor(public questionsService: QuestionsService, public gameService: GameControllerService) {}
+  constructor(public questionsService: QuestionsService, public gameService: GameControllerService, public playerService: PlayerService) {}
 
   ngOnInit(): void {
     //getQuestions service logic currently depends on having each property defined in the parameter. "any" value is take as empty string
@@ -64,8 +65,10 @@ export class TriviaPageComponent implements OnInit {
     return this.gameService.amISelected(a);
   }
   
-  submitAnswer(a: any, p: Player[]): void {
+  submitAnswer(a: any) {
     this.gameService.submitAnswer(a);
+    this.calculateScore(this.activePlayer, this.activeQuestion, a);
+    console.log(this.players)
   }
 
   isAnswerSubmitted(){
@@ -75,5 +78,10 @@ export class TriviaPageComponent implements OnInit {
   resetTurn(){
     this.selectedAnswer = this.gameService.selectedAnswer;
     this.canSubmit = this.gameService.canSubmit;
+  }
+
+  calculateScore(p: Player[], q:any, a: any) {
+    let currentPlayerIndex = this.players.indexOf(this.activePlayer);
+    this.players[currentPlayerIndex] = this.playerService.calculateScore(p, q, a);
   }
 }

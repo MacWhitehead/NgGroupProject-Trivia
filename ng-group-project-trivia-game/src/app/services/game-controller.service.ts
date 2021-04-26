@@ -24,11 +24,11 @@ export class GameControllerService {
       id: `${this.players.length + 1}`,
       stats: {
         gamesPlayed: 0,
-        gamesWon: [],
-        gamesLost: [],
+        gamesWon: 0,
+        gamesLost: 0,
         questionsAnswered: 0,
-        questionsRight: 0,
-        questionsWrong: 0,
+        questionsRight: [],
+        questionsWrong: [],
         bestCategory: '',
         worstCategory: '',
       },
@@ -50,9 +50,9 @@ export class GameControllerService {
   combineAnswers(questions: any) {
     questions.forEach((q) => {
       let answers = [];
-      answers.push({ correct: true, value: q.correct_answer });
+      answers.push({ correct: true, value: q.correct_answer, category:q.category });
       q.incorrect_answers.forEach((a) =>
-        answers.push({ correct: false, value: a })
+        answers.push({ correct: false, value: a, category:q.category })
       );
       answers = this.shuffleArray(answers);
       q.answersArray = answers;
@@ -75,6 +75,7 @@ export class GameControllerService {
     this.activePlayer = this.players[0];
     let indexOfPlayer = this.players.indexOf(this.activePlayer);
     this.activeQuestion = this.questions[indexOfPlayer][0];
+    console.log(this.activeQuestion)
     this.turnNumber = 0;
   }
 
