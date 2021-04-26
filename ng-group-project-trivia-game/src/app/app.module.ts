@@ -10,28 +10,39 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { LoginModule } from './page1/page1.module';
+import { TriviaPageComponent } from './components/trivia-page/trivia-page.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
 
-// Service
-import { AuthService } from './page1/auth.service'
+//Mats
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    TriviaPageComponent,
+    UserDetailsComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule,
-    LoginModule,
-    AngularFireModule.initializeApp(environment.firebase, 'ng-group-project-trivia'),
-    AngularFirestoreModule,     // Only required for database features
-    AngularFireAuthModule,     // Only required for auth features,
-    AngularFireStorageModule   // Only required for storage features
-  ],
-  providers: [
-    AuthService
+    MatToolbarModule,
+    MatCardModule,
+    MatGridListModule, 
+    MatFormFieldModule, 
+    MatIconModule, 
+    MatRadioModule, 
+    MatProgressSpinnerModule, 
+    MatGridListModule, 
+    MatTableModule
   ],
   bootstrap: [AppComponent]
 })
