@@ -19,8 +19,9 @@ export class LoginComponent implements OnInit {
       .GoogleAuthLogin()
       .then(() => {
         if (this.emails.includes(this.authService.host.email)) {
-          // this.host = this.authService.host;
-          console.log(`There you are :) ${this.authService.host.displayName}`)
+          console.log(`There you are :) ${this.authService.host.displayName}`);
+          this.hostService.setHostPlayer(this.authService.host)
+          console.log(this.hostService.hostPlayer)
         } else {
           console.log('Create an account homie')
           this.authService.clearHost()
