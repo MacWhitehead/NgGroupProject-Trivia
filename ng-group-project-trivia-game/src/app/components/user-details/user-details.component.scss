@@ -1,0 +1,40 @@
+mat-card {
+  width: auto;
+  height: auto;
+}
+
+td,
+th {
+  border: 1px solid black;
+  text-align: center;
+}
+
+th {
+  padding: 8px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+
+:host ::ng-deep .spinner1 circle{   
+  stroke: #FB00FF;
+}
+
+:host ::ng-deep .spinner2 circle{   
+  stroke: #9900FF;
+}
+.highlights {
+  vertical-align: text-top;
+}
+.boldText {
+  font-weight: bolder;
+  font-size: 1.2em;
+}
+
+.title {
+  text-align: center;
+}
