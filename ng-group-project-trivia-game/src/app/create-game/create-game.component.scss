@@ -1,0 +1,38 @@
+$colors: "#ff0000" "#ff7700" "#ffea00" "#91ff00" "#00ff15" "#00ffd4" "#00a6ff" "#0062ff"
+  "#9900ff" "#fb00ff";
+
+.card {
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+}
+
+.apply-color {
+  @each $current-color in $colors {
+    $i: index($list: $colors, $value: $current-color);
+  .select-#{$i} {
+    background-color: ($current-color);
+  }
+}
+}
+
+
+h1,
+p {
+  text-align: center;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+button {
+  margin: 10px 0px;
+}
