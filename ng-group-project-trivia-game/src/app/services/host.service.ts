@@ -13,14 +13,16 @@ export class HostService {
     displayName: '',
     email: '',
     photoURL: '',
-    totalGamesPlayed: 0,
-    totalGamesWon: 0,
-    totalGamesLost: 0,
-    totalQuestionsAnswered: 0,
-    totalRightAnswers: 0,
-    totalWrongAnswers: 0,
-    bestCategory: '',
-    worstCategory: '',
+    stats: {
+      gamesPlayed: 0,
+      gamesWon: [],
+      gamesLost: [],
+      questionsAnswered: 0,
+      questionsRight: 0,
+      questionsWrong: 0,
+      bestCategory: '',
+      worstCategory: ''
+  }
   }
   
   nonHostPlayers = []
