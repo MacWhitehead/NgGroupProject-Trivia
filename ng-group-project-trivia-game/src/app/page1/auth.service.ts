@@ -17,18 +17,10 @@ import { map } from 'rxjs/operators';
 export class AuthService {
   usersCollection: AngularFirestoreCollection<User>;
   users: Observable<any>;
-  host: User = {
+  host: any = {
     displayName: '',
     email: '',
     photoURL: '',
-    // totalGamesPlayed: 0,
-    // totalGamesWon: 0,
-    // totalGamesLost: 0,
-    // totalQuestionsAnswered: 0,
-    // totalRightAnswers: 0,
-    // totalWrongAnswers: 0,
-    // bestCategory: '',
-    // worstCategory: '',
   };
 
   // Get ids for each user, for login assign authService host to
