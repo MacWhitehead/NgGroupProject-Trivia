@@ -1,6 +1,6 @@
 <mat-card>
   <button
-    *ngFor="let player of [1, 2, 3, 4]"
+    *ngFor="let player of [1, 2, 3]"
     mat-button
     (click)="addPlayer(player)"
   >
@@ -49,4 +49,10 @@
     </button>
     <button mat-button *ngIf="isAnswerSubmitted()" (click)="nextQuestion()">Next</button>
   </mat-card-actions>
+</mat-card>
+
+
+<mat-card *ngIf="isGameStarted">
+  <p [innerHTML]="displayCurrentPlayerScore()"></p>
+  <p [innerHTML]="whoIsWinning()"></p>
 </mat-card>

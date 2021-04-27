@@ -84,4 +84,32 @@ export class TriviaPageComponent implements OnInit {
     let currentPlayerIndex = this.players.indexOf(this.activePlayer);
     this.players[currentPlayerIndex] = this.playerService.calculateScore(p, q, a);
   }
+
+  displayCurrentPlayerScore(){
+    let score = this.activePlayer.stats.questionsRight.length;
+    return `Current Score: ${score}/${this.questions[0].length}` 
+  }
+
+  whoIsWinning(){
+    let winning = this.players[0];
+    let tieArray = [];
+    this.players.forEach(p => {
+      if (p.stats.questionsRight.length > winning.stats.questionsRight.length){
+        winning = p;
+        tieArray[0] = p;
+      } else if (p.stats.questionsRight.length === winning.stats.questionsRight.length){
+        tieArray.push(p);
+      }
+    })
+    if (tieArray.length > 1){
+      if (tieArray.length > 2){
+        return `It's a tie between ${tieArray[0].username}, ${tieArray[1].username} and ${tieArray[2].username}!`
+      } else {
+        return `It's a tie between ${tieArray[0].username} and ${tieArray[1].username}!`
+      }
+    } else {
+      return `${winning.username} is currently in the lead!`
+    } 
+  }
+
 }
