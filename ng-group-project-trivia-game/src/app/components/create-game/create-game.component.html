@@ -5,7 +5,7 @@
     <form class="example-form">
       <mat-form-field appearance="fill" class="example-full-width">
         <mat-label>Player Count</mat-label>
-        <mat-select class="apply-color"
+        <mat-select 
           [(ngModel)]="selectedCount"
           name="playerCount"
           (selectionChange)="
@@ -20,7 +20,7 @@
 
       <mat-form-field appearance="fill" class="example-full-width">
         <mat-label>Category</mat-label>
-        <mat-select class="apply-color"
+        <mat-select 
           [(ngModel)]="selectedCategory"
           name="playerCategory"
           (selectionChange)="isFormValid()"
@@ -35,7 +35,7 @@
 
       <mat-form-field appearance="fill" class="example-full-width">
         <mat-label>Difficulty</mat-label>
-        <mat-select class="apply-color"
+        <mat-select 
           [(ngModel)]="selectedDifficulty"
           name="playerDifficulty"
           (selectionChange)="isFormValid()"
@@ -48,7 +48,7 @@
 
       <mat-form-field appearance="fill" class="example-full-width">
         <mat-label>Questions type</mat-label>
-        <mat-select class="apply-color"
+        <mat-select 
           [(ngModel)]="selectedQuestionType"
           name="questionType"
           (selectionChange)="isFormValid()"
@@ -61,7 +61,7 @@
 
       <mat-form-field appearance="fill" class="example-full-width">
         <mat-label>Challenge your friends!</mat-label>
-        <mat-select class="apply-color"
+        <mat-select 
           [(ngModel)]="friendList"
           name="selectedFriends"
           multiple
@@ -78,7 +78,7 @@
 
       <mat-form-field appearance="fill" class="example-full-width">
         <mat-label>Number of questions per user</mat-label>
-        <input class="apply-color"
+        <input 
           matInput
           type="text"
           placeholder="0"
