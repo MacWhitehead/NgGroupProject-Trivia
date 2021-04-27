@@ -64,6 +64,7 @@ export class CreateGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDropdownData();
+    console.log('Github fixed?')
   }
 
   getDropdownData() {
