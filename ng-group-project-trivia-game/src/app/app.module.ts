@@ -21,28 +21,38 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
+import { CreateGameComponent } from './components/create-game/create-game.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     TriviaPageComponent,
     UserDetailsComponent,
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule, 
     MatToolbarModule,
     MatCardModule,
-    MatGridListModule, 
-    MatFormFieldModule, 
+    MatGridListModule,
+    MatFormFieldModule,
     MatIconModule, 
     MatRadioModule, 
-    MatProgressSpinnerModule, 
-    MatGridListModule, 
-    MatTableModule
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule
   ],
   bootstrap: [AppComponent]
 })
