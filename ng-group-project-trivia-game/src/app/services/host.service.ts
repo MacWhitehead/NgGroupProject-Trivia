@@ -15,14 +15,14 @@ export class HostService {
     photoURL: '',
     stats: {
       gamesPlayed: 0,
-      gamesWon: [],
-      gamesLost: [],
+      gamesWon: 0,
+      gamesLost: 0,
       questionsAnswered: 0,
-      questionsRight: 0,
-      questionsWrong: 0,
+      questionsRight: [],
+      questionsWrong: [],
       bestCategory: '',
       worstCategory: ''
-  }
+    }
   }
   
   nonHostPlayers = []

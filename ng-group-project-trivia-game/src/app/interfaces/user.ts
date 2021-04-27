@@ -4,11 +4,11 @@ export interface User {
   photoURL: string;
   stats: {
     gamesPlayed: number,
-    gamesWon: any[],
-    gamesLost: any[],
+    gamesWon: number,
+    gamesLost: number,
     questionsAnswered: number,
-    questionsRight: number,
-    questionsWrong: number,
+    questionsRight: [],
+    questionsWrong: [],
     bestCategory: string,
     worstCategory: string
 }
