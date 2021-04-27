@@ -22,7 +22,7 @@ export class HostService {
       questionsWrong: [],
       bestCategory: '',
       worstCategory: ''
-  }
+    }
   }
   
   nonHostPlayers = []
