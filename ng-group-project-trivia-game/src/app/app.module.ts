@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 // Firebase modules
 import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -25,10 +24,13 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTableModule} from '@angular/material/table';
 import { CreateGameComponent } from './components/create-game/create-game.component';
+import { environment } from 'src/environments/environment';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { CreateGameComponent } from './components/create-game/create-game.compon
     AppComponent,
     TriviaPageComponent,
     UserDetailsComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -48,11 +51,27 @@ import { CreateGameComponent } from './components/create-game/create-game.compon
     MatFormFieldModule,
     MatIconModule, 
     MatRadioModule, 
+    MatProgressSpinnerModule, 
+    MatGridListModule, 
+    MatTableModule,
+    BrowserAnimationsModule, 
+    MatToolbarModule,
+    MatCardModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatIconModule, 
+    MatRadioModule, 
     MatProgressSpinnerModule,
     MatSelectModule,
     MatInputModule,
     MatButtonModule,
-    FormsModule
+    FormsModule, 
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
+    MatTooltipModule
+
   ],
   bootstrap: [AppComponent]
 })
