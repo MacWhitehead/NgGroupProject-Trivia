@@ -10,6 +10,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TriviaPageComponent } from './components/trivia-page/trivia-page.component';
+import { HttpClientModule } from '@angular/common/http';
+
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 
 //Mats
@@ -25,8 +27,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import {MatTableModule} from '@angular/material/table';
 import { CreateGameComponent } from './components/create-game/create-game.component';
 import { environment } from 'src/environments/environment';
@@ -44,7 +46,16 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatGridListModule, 
+    MatFormFieldModule, 
+    MatIconModule, 
+    MatRadioModule, 
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    HttpClientModule, 
     MatToolbarModule,
     MatCardModule,
     MatGridListModule,

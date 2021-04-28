@@ -69,6 +69,7 @@ export class CreateGameComponent implements OnInit {
   ngOnInit(): void {
     this.getDropdownData();
     this.existingUsers = this.hostService.nonHostPlayers.map(x => x.displayName)
+    console.log('Github fixed?')
   }
 
   getDropdownData() {
