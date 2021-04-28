@@ -4,12 +4,13 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { CreateGameComponent } from './components/create-game/create-game.component';
 import { LoginComponent } from './components/login/login.component';
 import { TriviaPageComponent } from './components/trivia-page/trivia-page.component';
+import { LoginCheckGuard } from './login-check.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'create-game', component: CreateGameComponent },
-  {path: 'trivia-page', component: TriviaPageComponent},
-  { path: 'user-details', component: UserDetailsComponent },
+  { path: 'create-game', component: CreateGameComponent, canActivate: [LoginCheckGuard], runGuardsAndResolvers: 'always' },
+  {path: 'trivia-page', component: TriviaPageComponent, canActivate: [LoginCheckGuard], runGuardsAndResolvers: 'always'},
+  { path: 'user-details', component: UserDetailsComponent, canActivate: [LoginCheckGuard], runGuardsAndResolvers: 'always' },
 ];
 
 @NgModule({

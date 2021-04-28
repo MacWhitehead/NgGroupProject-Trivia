@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from './auth.service'
 import { HostService } from '../../services/host.service'
@@ -52,7 +50,7 @@ export class LoginComponent implements OnInit {
       this.users = users;
       this.emails = this.users.map(user => user.email);
       this.hostService.allPlayers = users
-      // console.log(this.hostService.allPlayers)
+      console.log(this.hostService.allPlayers)
     })
 
   }
