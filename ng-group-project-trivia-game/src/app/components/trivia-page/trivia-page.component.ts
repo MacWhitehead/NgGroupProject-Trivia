@@ -28,7 +28,7 @@ export class TriviaPageComponent implements OnInit {
   //Pushes a player object based on Player interface layout to players variable
   
   //runs the getQuestions function from questionsService and saves the results to the questions variable array
-  getQuestions(params: any): void {
+  getQuestions(): void {
     this.questions = this.gameService.questions;
   }
   
