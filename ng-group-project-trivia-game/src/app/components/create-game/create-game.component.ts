@@ -14,7 +14,8 @@ export class CreateGameComponent implements OnInit {
   formValid = true;
 
   friendList: any[] = [];
-  existingUsers: any[] = ['Jack', 'Jane', 'Mary', 'Jerry'];
+  // existingUsers: any[] = ['Jack', 'Jane', 'Mary', 'Jerry'];
+  existingUsers: any[] = [];
 
   selectedCount: number;
   playerCount: any[] = [1, 2, 3];
@@ -67,7 +68,7 @@ export class CreateGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDropdownData();
-    this.friendList = this.hostService.nonHostPlayers.map(x => x.displayName)
+    this.existingUsers = this.hostService.nonHostPlayers.map(x => x.displayName)
   }
 
   getDropdownData() {

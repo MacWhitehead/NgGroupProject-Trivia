@@ -55,7 +55,7 @@ export class AuthService {
     this.usersCollection.add(this.host)
     console.log(`New user added to database :) ${this.host.displayName}`)
     this.getUsers().subscribe((data) => {
-      console.log(data)
+      // console.log(data)
     })
   }
 
