@@ -81,9 +81,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.authService.getUsers().subscribe((users: any) => {
       this.users = users;
-      this.emails = this.users.map((user) => user.email);
-      this.hostService.allPlayers = users;
-      // console.log(this.hostService.allPlayers)
-    });
+      this.emails = this.users.map(user => user.email);
+      this.hostService.allPlayers = users
+      console.log(this.hostService.allPlayers)
+    })
+
   }
 }
