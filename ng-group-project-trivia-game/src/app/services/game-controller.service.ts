@@ -20,8 +20,9 @@ export class GameControllerService {
 
   addPlayer(p: string) {
     this.players.push({
-      username: p,
-      id: `${this.players.length + 1}`,
+      displayName: p,
+      email: "",
+      photoURL: "",
       stats: {
         gamesPlayed: 0,
         gamesWon: 0,

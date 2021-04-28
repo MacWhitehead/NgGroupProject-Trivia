@@ -12,7 +12,7 @@
 <mat-card *ngIf="isGameStarted">
   <mat-card-header>
     <mat-card-title [innerHTML]="activeQuestion.question"></mat-card-title>
-    <mat-card-subtitle>Player: {{ activePlayer.username }}</mat-card-subtitle>
+    <mat-card-subtitle>Player: {{ activePlayer.displayName }}</mat-card-subtitle>
     <mat-card-subtitle
       >Category: {{ activeQuestion.category }}</mat-card-subtitle
     >

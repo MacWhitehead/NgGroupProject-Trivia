@@ -8,7 +8,7 @@ import { User } from '../interfaces/user'
 export class HostService {
 
   constructor() { }
-
+  isLoggedIn: boolean;
   hostPlayer: User = {
     displayName: '',
     email: '',
@@ -32,9 +32,14 @@ export class HostService {
   setHostPlayer(x: User) {
     this.hostPlayer = x
     this.nonHostPlayers = this.allPlayers.filter(x => {
+      this.isLoggedIn = true;
       return x.email != this.hostPlayer.email
     })
 
   }
 
+  setLoggedIn() {
+    return this.isLoggedIn;
+  }
+  
 }

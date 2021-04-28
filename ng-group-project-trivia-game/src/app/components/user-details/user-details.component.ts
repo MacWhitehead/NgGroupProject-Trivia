@@ -12,8 +12,9 @@ export class UserDetailsComponent {
   correctIncorrectPercent: number = 0;
   exampleUser: Player[] = [
     {
-    username: 'user1',
-    id: 'user1',
+    displayName: 'user1',
+    email: "test@gmail.com",
+    photoURL: "yeet",
     stats: {
       gamesPlayed: 4,
       gamesWon: 3,

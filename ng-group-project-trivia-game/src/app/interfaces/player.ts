@@ -1,6 +1,7 @@
 export interface Player {
-    username: string,
-    id: string,
+    displayName: string,
+    email: string,
+    photoURL: string,
     stats: {
         gamesPlayed: number,
         gamesWon: number,

@@ -103,12 +103,12 @@ export class TriviaPageComponent implements OnInit {
     })
     if (tieArray.length > 1){
       if (tieArray.length > 2){
-        return `It's a tie between ${tieArray[0].username}, ${tieArray[1].username} and ${tieArray[2].username}!`
+        return `It's a tie between ${tieArray[0].displayName}, ${tieArray[1].displayName} and ${tieArray[2].displayName}!`
       } else {
-        return `It's a tie between ${tieArray[0].username} and ${tieArray[1].username}!`
+        return `It's a tie between ${tieArray[0].displayName} and ${tieArray[1].displayName}!`
       }
     } else {
-      return `${winning.username} is currently in the lead!`
+      return `${winning.displayName} is currently in the lead!`
     } 
   }
 
