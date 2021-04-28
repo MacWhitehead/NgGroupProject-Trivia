@@ -5,10 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from '../components/login/login.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -18,6 +17,6 @@ import { LoginComponent } from '../components/login/login.component';
     ReactiveFormsModule,
     FormsModule,
   ],
-  exports: [LoginComponent],
+  exports: [],
 })
 export class LoginModule {}
