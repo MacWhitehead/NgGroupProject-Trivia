@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ResolvedReflectiveFactory } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from './auth.service';
@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
             worstCategory: '',
           },
         });
-        // this.hostService.setHostPlayer(this.authService.host)
-        console.log('HOST USER DATA:');
-        console.log(this.hostService.hostPlayer);
+        this.router.navigate(['create-game'])
+        // console.log('HOST USER DATA:');
+        // console.log(this.hostService.hostPlayer);
       } else {
         console.log('Create an account homie');
         this.authService.clearHost();
@@ -56,7 +56,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    public hostService: HostService
+    public hostService: HostService,
+    private router: Router
   ) {}
 
   ngOnInit() {

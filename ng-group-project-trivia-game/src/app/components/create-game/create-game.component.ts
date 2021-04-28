@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HostService } from 'src/app/services/host.service';
 
 @Component({
   selector: 'app-create-game',
@@ -60,10 +61,13 @@ export class CreateGameComponent implements OnInit {
   ];
 
   selectedFormValues: any[] = [];
-  constructor() {}
+  constructor(
+    public hostService: HostService
+  ) {}
 
   ngOnInit(): void {
     this.getDropdownData();
+    this.friendList = this.hostService.nonHostPlayers.map(x => x.displayName)
   }
 
   getDropdownData() {
