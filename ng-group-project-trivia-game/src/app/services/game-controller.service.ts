@@ -18,23 +18,9 @@ export class GameControllerService {
 
   constructor(public questionsService: QuestionsService) {}
 
-  addPlayer(p: string) {
-    this.players.push({
-      displayName: p,
-      email: "",
-      photoURL: "",
-      stats: {
-        gamesPlayed: 0,
-        gamesWon: 0,
-        gamesLost: 0,
-        questionsAnswered: 0,
-        questionsRight: [],
-        questionsWrong: [],
-        bestCategory: '',
-        worstCategory: '',
-      },
-    });
-    return this.players;
+  addPlayer(p: any) {
+    this.players.push(p)
+    console.log(this.players)
   }
   //runs the getQuestions function from questionsService and saves the results to the questions variable array
   getQuestions(params: any): void {
@@ -165,4 +151,6 @@ export class GameControllerService {
   calculateScore(){
     
   }
+
+  
 }
