@@ -54,7 +54,7 @@ export class AuthService {
   addUser() {
     this.usersCollection.add(this.host)
     this.getUsers().subscribe((data) => {
-      // console.log(data)
+      console.log(data)
     })
   }
 

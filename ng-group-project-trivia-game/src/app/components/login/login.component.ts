@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
         // console.log(this.hostService.hostPlayer);
       } else {
         console.log(`New user added to database :) ${this.authService.host.displayName}`)
-        this.authService.addUser()
         this.hostService.setHostPlayer({
           displayName: this.authService.host.displayName,
           email: this.authService.host.email,
@@ -53,7 +52,8 @@ export class LoginComponent implements OnInit {
             bestCategory: '',
             worstCategory: '',
           },
-        })
+        })        
+        this.authService.addUser()
         this.router.navigate(['user-details'])
         // console.log('Create an account homie');
         // this.authService.clearHost();
