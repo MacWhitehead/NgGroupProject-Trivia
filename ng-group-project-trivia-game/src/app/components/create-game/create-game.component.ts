@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GameControllerService } from 'src/app/services/game-controller.service';
 import { HostService } from 'src/app/services/host.service';
 import { QuestionsService } from 'src/app/services/questions.service';
@@ -67,7 +68,6 @@ export class CreateGameComponent implements OnInit {
   constructor(
     public hostService: HostService,
     public gameController: GameControllerService,
-    public questionsService: QuestionsService,
   ) {}
 
   ngOnInit(): void {

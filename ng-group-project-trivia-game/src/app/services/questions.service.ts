@@ -34,7 +34,7 @@ export class QuestionsService {
     }
 
     if (params.type !== '') {
-      type = 'type=' + params.type.toLowerCase() + '&';
+      type = 'type=' + params.type.toLowerCase();
     } else {
       type = '';
     }
