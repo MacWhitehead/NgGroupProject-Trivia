@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { GameControllerService } from 'src/app/services/game-controller.service';
 import { HostService } from 'src/app/services/host.service';
+import { QuestionsService } from 'src/app/services/questions.service';
 
 @Component({
   selector: 'app-create-game',
@@ -51,7 +53,7 @@ export class CreateGameComponent implements OnInit {
   ];
 
   selectedDifficulty: string = '';
-  difficulty: any[] = ['Easy', 'Medium', 'Hard'];
+  difficulty: any[] = ['Any','Easy', 'Medium', 'Hard'];
 
   selectedQuestionType: string = '';
   type: any[] = [];
@@ -63,7 +65,9 @@ export class CreateGameComponent implements OnInit {
 
   selectedFormValues: any[] = [];
   constructor(
-    public hostService: HostService
+    public hostService: HostService,
+    public gameController: GameControllerService,
+    public questionsService: QuestionsService,
   ) {}
 
   ngOnInit(): void {
@@ -119,8 +123,36 @@ export class CreateGameComponent implements OnInit {
     }
     }
 
-  submitForm() {
-    console.log("Submitted")
-    return this.selectedFormValues;
+  submitForm(): void {
+    console.log(this.selectedFormValues);
+    this.setGameData(this.selectedFormValues);
   }
+
+  setGameData(data: any[]): void{
+    let playerCount = data[0] + 1;
+    let category = this.categories.find(c => c.title === data[1]);
+    let difficulty = data[2];
+    let type = data[3];
+    let amount = data[5];
+
+    //create player objects for game 
+    for (let i = 0; i < playerCount; i++){
+      if (i === 0){
+        this.gameController.addPlayer(this.hostService.hostPlayer);
+      } else {
+        console.log(this.hostService.nonHostPlayers)
+        let player = this.hostService.nonHostPlayers.find(p => p.displayName === data[4][i-1])
+        this.gameController.addPlayer(player)
+      }
+    }
+    if (difficulty == 'Any'){
+      difficulty = '';
+    }
+    if (type == "Any Type"){
+      type = ''
+    }
+    let params = {amount: amount, category: category.categoryNumber, difficulty: difficulty, type: type, playerCount: playerCount}
+    this.gameController.getQuestions(params)
+  }
+
 }
