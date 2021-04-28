@@ -151,6 +151,12 @@ export class CreateGameComponent implements OnInit {
     if (type == "Any Type"){
       type = ''
     }
+    if (type == 'Multiple Choice'){
+      type = 'multiple'
+    }
+    if (type == 'True / False'){
+      type = 'boolean';
+      }
     let params = {amount: amount, category: category.categoryNumber, difficulty: difficulty, type: type, playerCount: playerCount}
     this.gameController.getQuestions(params)
   }
