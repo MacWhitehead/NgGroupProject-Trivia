@@ -59,7 +59,6 @@ export class AuthService {
   }
 
 
-
   GoogleAuthLogin() {
     return this.afAuth
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())

@@ -1,8 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
 import { QuestionsService } from '../services/questions.service';
 import { Player } from '../interfaces/player';
 import { Router } from '@angular/router';
-
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
+import { shareReplay, } from 'rxjs/operators';
+import { AuthService } from '../components/login/auth.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -17,34 +22,41 @@ export class GameControllerService {
   questions: any[] = [];
   isGameStarted: boolean;
 
-  constructor(public questionsService: QuestionsService, private router: Router) {}
+  constructor(
+    public questionsService: QuestionsService,
+    private router: Router,
+    public afs: AngularFirestore,
+    public authService: AuthService
+  ) {}
 
   addPlayer(p: any) {
-    this.players.push(p)
-    console.log(this.players)
+    this.players.push(p);
   }
   //runs the getQuestions function from questionsService and saves the results to the questions variable array
   getQuestions(params: any): void {
-    this.questions.length = params.playerCount
-    for (let player = 0; player < params.playerCount; player++){
+    this.questions.length = params.playerCount;
+    for (let player = 0; player < params.playerCount; player++) {
       this.questionsService.getQuestions(params).subscribe((response: any) => {
         response.results = this.combineAnswers(response.results);
         this.questions[player] = response.results;
-        console.log(this.questions);
-        if (this.questions[params.playerCount - 1] !== []){
+
+        if (this.questions[params.playerCount - 1] !== []) {
           this.router.navigate(['trivia-page']);
         }
       });
     }
-    
   }
   //loops through all questions and puts correct answers into an array, shuffles them and adds the shuffled array as a property to each question
   combineAnswers(questions: any) {
     questions.forEach((q) => {
       let answers = [];
-      answers.push({ correct: true, value: q.correct_answer, category:q.category });
+      answers.push({
+        correct: true,
+        value: q.correct_answer,
+        category: q.category,
+      });
       q.incorrect_answers.forEach((a) =>
-        answers.push({ correct: false, value: a, category:q.category })
+        answers.push({ correct: false, value: a, category: q.category })
       );
       answers = this.shuffleArray(answers);
       q.answersArray = answers;
@@ -67,20 +79,24 @@ export class GameControllerService {
     this.activePlayer = this.players[0];
     let indexOfPlayer = this.players.indexOf(this.activePlayer);
     this.activeQuestion = this.questions[indexOfPlayer][0];
-    console.log(this.activeQuestion)
+
     this.turnNumber = 0;
   }
 
   nextQuestion(): void {
-   /* ----- VARIABLES FOR NEXTQUESTION LOGIC START ----- */
-    
-    let currentPlayerIndex = this.players.indexOf(this.activePlayer)
+    /* ----- VARIABLES FOR NEXTQUESTION LOGIC START ----- */
 
-    let currentQuestion = this.questions[currentPlayerIndex][this.turnNumber]
-    
-    let lastQuestionForTurn = this.questions[this.players.length - 1][this.turnNumber];
- 
-    let lastQuestionForGame = this.questions[this.players.length-1][this.questions[0].length - 1]
+    let currentPlayerIndex = this.players.indexOf(this.activePlayer);
+
+    let currentQuestion = this.questions[currentPlayerIndex][this.turnNumber];
+
+    let lastQuestionForTurn = this.questions[this.players.length - 1][
+      this.turnNumber
+    ];
+
+    let lastQuestionForGame = this.questions[this.players.length - 1][
+      this.questions[0].length - 1
+    ];
     let currentPlayer = this.players[currentPlayerIndex];
     let lastPlayer = this.players[this.players.length - 1];
     let nextQuestion;
@@ -88,29 +104,26 @@ export class GameControllerService {
     /* ----- VARIABLES FOR NEXTQUESTION LOGIC END ----- */
 
     /* ----- IF LAST QUESTION DO NOTHING FOR NOW ----- */
-    if (currentQuestion === lastQuestionForGame && currentPlayer === lastPlayer) {
-      console.log('First');
-      this.activeQuestion = this.activeQuestion;
-      this.activePlayer = this.activePlayer;
-      
+    if (
+      currentQuestion === lastQuestionForGame &&
+      currentPlayer === lastPlayer
+    ) {
+      this.getResults(this.players);
     } else if (
       /* ----- IF LAST PLAYER IN ARRAY AND NOT LAST QUESTION IN GAME, NEXT PLAYER IS FIRST PLAYER ----- */
       currentPlayer === lastPlayer &&
       currentQuestion === lastQuestionForTurn
     ) {
-      console.log('Second');
       this.activePlayer = this.players[0];
       this.turnNumber += 1;
       nextQuestion = this.questions[0][this.turnNumber];
       this.activeQuestion = nextQuestion;
       this.resetTurn();
-      
     } else if (
       /* ----- IF NOT LAST PLAYER IN ARRAY AND NOT LAST QUESTION SET NEXT PLAYER AND NEXT QUESTION ----- */
       currentPlayer !== lastPlayer &&
       currentQuestion !== lastQuestionForTurn
     ) {
-      console.log('Third');
       nextPlayer = this.players[currentPlayerIndex + 1];
       nextQuestion = this.questions[currentPlayerIndex + 1][this.turnNumber];
       this.activePlayer = nextPlayer;
@@ -118,7 +131,6 @@ export class GameControllerService {
       this.resetTurn();
     }
     this.resetTurn();
-    
   }
 
   setSelected(a: any): void {
@@ -135,9 +147,9 @@ export class GameControllerService {
   }
 
   submitAnswer(a: any): void {
-    console.log(this.selectedAnswer)
-    if (this.selectedAnswer !== ""){
+    if (this.selectedAnswer !== '') {
       this.answerSubmitted = true;
+      this.canSubmit = false;
     }
   }
 
@@ -147,15 +159,33 @@ export class GameControllerService {
     } else return false;
   }
 
-  resetTurn(){
+  resetTurn() {
     this.answerSubmitted = false;
-    this.selectedAnswer = ""; 
-    this.canSubmit = false;
+    this.selectedAnswer = '';
   }
 
-  calculateScore(){
-    
-  }
+  getResults(pd: any[]){
+    console.log(pd)
+    let fsData = [];
+    this.authService.getUsers().subscribe((users: any) => {
+      pd.forEach(p => {
+        let found = users.find(u => u.email === p.email);
+        fsData.push(found);
+        console.log(fsData)
+      })
+  })
 
-  
+  fsData.forEach(u => {
+    let player = pd.find(p => p.email === u.email)
+    player.questionsRight.forEach(item => {
+      if (u.questionsRight.includes(item)){
+        let targetValue = u.questionsRight[u.questionsRight.indexOf(item)];
+        targetValue.count += item.count;
+        //save player data
+      }
+    })
+  })
+}
+
+  savePlayerData(){}
 }

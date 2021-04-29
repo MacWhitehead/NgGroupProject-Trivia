@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
+import { AuthService } from '../components/login/auth.service';
 import { User } from '../interfaces/user'
 @Injectable({
   providedIn: 'root'
 })
 export class HostService {
-  constructor() { }
+  constructor(authService: AuthService) { }
   hostPlayer: User = {
     displayName: '',
     email: '',
@@ -28,4 +29,5 @@ export class HostService {
       return x.email != this.hostPlayer.email
     })
   }
+
 }
