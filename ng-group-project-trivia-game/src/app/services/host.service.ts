@@ -31,8 +31,8 @@ export class HostService {
 
   setHostPlayer(x: User) {
     this.hostPlayer = x
+    this.isLoggedIn = true;
     this.nonHostPlayers = this.allPlayers.filter(x => {
-      this.isLoggedIn = true;
       return x.email != this.hostPlayer.email
     })
 

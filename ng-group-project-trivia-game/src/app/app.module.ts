@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TriviaPageComponent } from './components/trivia-page/trivia-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import {LoginComponent} from './components/login/login.component'
 
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 
@@ -41,7 +42,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     TriviaPageComponent,
     UserDetailsComponent,
     CreateGameComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

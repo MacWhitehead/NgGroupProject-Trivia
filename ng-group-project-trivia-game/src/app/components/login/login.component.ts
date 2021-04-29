@@ -17,27 +17,36 @@ export class LoginComponent implements OnInit {
   loggingIn() {
     this.authService.GoogleAuthLogin().then(() => {
       if (this.emails.includes(this.authService.host.email)) {
-        console.log(`Found you! You're signed in as ${this.authService.host.displayName} :)`);
-        this.hostService.setHostPlayer({
-          displayName: this.authService.host.displayName,
-          email: this.authService.host.email,
-          photoURL: this.authService.host.photoURL,
-          stats: {
-            gamesPlayed: 0,
-            gamesWon: 0,
-            gamesLost: 0,
-            questionsAnswered: 0,
-            questionsRight: [],
-            questionsWrong: [],
-            bestCategory: '',
-            worstCategory: '',
-          },
+        console.log(
+          `Found you! You're signed in as ${this.authService.host.displayName} :)`
+        );
+        this.users.forEach((x) => {
+          if (x.email == this.authService.host.email) {
+            this.hostService.setHostPlayer({
+              displayName: x.displayName,
+              email: x.email,
+              photoURL: x.photoURL,
+              stats: {
+                gamesPlayed: x.stats.gamesPlayed,
+                gamesWon: x.stats.gamesWon,
+                gamesLost: x.stats.gamesLost,
+                questionsAnswered: x.stats.questionsAnswered,
+                questionsRight: x.stats.questionsRight,
+                questionsWrong: x.stats.questionsWrong,
+                bestCategory: x.stats.bestCategory,
+                worstCategory: x.stats.worstCategory,
+              },
+            });
+          }
         });
-        this.router.navigate(['user-details'])
-        // console.log('HOST USER DATA:');
-        // console.log(this.hostService.hostPlayer);
+        // console.log(this.hostService.hostPlayer)
+        // console.log(this.hostService.nonHostPlayers);
+        this.router.navigate(['user-details']);
       } else {
-        console.log(`New user added to database :) ${this.authService.host.displayName}`)
+        console.log(
+          `New user added to database :) ${this.authService.host.displayName}`
+        );
+        this.authService.addUser()
         this.hostService.setHostPlayer({
           displayName: this.authService.host.displayName,
           email: this.authService.host.email,
@@ -52,25 +61,13 @@ export class LoginComponent implements OnInit {
             bestCategory: '',
             worstCategory: '',
           },
-        })        
-        this.authService.addUser()
-        this.router.navigate(['user-details'])
-        // console.log('Create an account homie');
-        // this.authService.clearHost();
+        })
+        console.log(this.hostService.hostPlayer)
+        console.log(this.hostService.nonHostPlayers);
+        this.router.navigate(['user-details']);
       }
     });
   }
-
-  // signingUp() {
-  //   this.authService.GoogleAuthSignup().then(() => {
-  //     if (this.emails.includes(this.authService.host.email)) {
-  //       console.log('You already have an account bruh');
-  //       this.authService.clearHost();
-  //     } else {
-  //       this.authService.addUser();
-  //     }
-  //   });
-  // }
 
   constructor(
     public authService: AuthService,
@@ -83,7 +80,7 @@ export class LoginComponent implements OnInit {
       this.users = users;
       this.emails = this.users.map((user) => user.email);
       this.hostService.allPlayers = users;
-      // console.log(this.hostService.allPlayers)
+      // console.log(this.hostService.allPlayers);
     });
   }
 }
