@@ -16,8 +16,7 @@ export class CreateGameComponent implements OnInit {
 
   formValid = true;
 
-  friendList: any[] = [];
-  // existingUsers: any[] = ['Jack', 'Jane', 'Mary', 'Jerry'];
+  playerTotal: number;
   existingUsers: any[] = [];
 
   selectedCount: number;
@@ -72,8 +71,8 @@ export class CreateGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDropdownData();
-    this.existingUsers = this.hostService.nonHostPlayers.map(x => x.displayName)
-    console.log('Github fixed?')
+    console.log(this.hostService.nonHostPlayers)
+    this.existingUsers = this.hostService.nonHostPlayers.map(player => player.displayName)
   }
 
   getDropdownData() {
@@ -83,15 +82,10 @@ export class CreateGameComponent implements OnInit {
     this.questionType.forEach((difficulty) => {
       this.type.push(difficulty.type);
     });
-    console.log(this.categoryTitle);
-    console.log(this.type);
   }
 
   getPlayerCount(selectedCount: any) {
     this.selectedCount = selectedCount;
-  }
-
-  pullPlayerCount() {
     return this.selectedCount;
   }
 
@@ -114,18 +108,16 @@ export class CreateGameComponent implements OnInit {
       this.selectedCategory,
       this.selectedDifficulty,
       this.selectedQuestionType,
-      this.friendList,
+      this.playerTotal,
       this.selectQuestionCount
     );
     if (!this.selectedFormValues.some((item) => item == undefined)) {
-      console.log(this.selectedFormValues);
       this.formValid = false;
     }
     }
 
-  submitForm(): void {
-    console.log(this.selectedFormValues);
-    this.setGameData(this.selectedFormValues);
+  submitForm() {
+    return this.selectedFormValues;
   }
 
   setGameData(data: any[]): void{

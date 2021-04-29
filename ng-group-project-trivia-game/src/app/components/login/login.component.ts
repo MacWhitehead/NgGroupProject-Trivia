@@ -1,6 +1,5 @@
 import { Component, OnInit, ResolvedReflectiveFactory } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Observable, of } from 'rxjs';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from './auth.service';
 import { HostService } from '../../services/host.service';
