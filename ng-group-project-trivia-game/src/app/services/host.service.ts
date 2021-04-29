@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user'
-
-
 @Injectable({
   providedIn: 'root'
 })
 export class HostService {
-
   constructor() { }
-  isLoggedIn: boolean;
   hostPlayer: User = {
     displayName: '',
     email: '',
@@ -24,22 +20,13 @@ export class HostService {
       worstCategory: ''
     }
   }
-  
   nonHostPlayers = []
-
   allPlayers = []
-
   setHostPlayer(x: User) {
     this.hostPlayer = x
     this.isLoggedIn = true;
     this.nonHostPlayers = this.allPlayers.filter(x => {
       return x.email != this.hostPlayer.email
     })
-
   }
-
-  setLoggedIn() {
-    return this.isLoggedIn;
-  }
-  
 }

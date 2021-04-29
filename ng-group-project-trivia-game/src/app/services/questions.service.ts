@@ -28,13 +28,13 @@ export class QuestionsService {
     }
 
     if (params.difficulty !== '') {
-      difficulty = 'difficulty=' + params.difficulty + '&';
+      difficulty = 'difficulty=' + params.difficulty.toLowerCase() + '&';
     } else {
       difficulty = '';
     }
 
     if (params.type !== '') {
-      type = 'type=' + params.type + '&';
+      type = 'type=' + params.type.toLowerCase();
     } else {
       type = '';
     }

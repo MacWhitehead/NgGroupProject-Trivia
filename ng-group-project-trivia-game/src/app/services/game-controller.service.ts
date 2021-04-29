@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { QuestionsService } from '../services/questions.service';
 import { Player } from '../interfaces/player';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -16,25 +17,11 @@ export class GameControllerService {
   questions: any[] = [];
   isGameStarted: boolean;
 
-  constructor(public questionsService: QuestionsService) {}
+  constructor(public questionsService: QuestionsService, private router: Router) {}
 
-  addPlayer(p: string) {
-    this.players.push({
-      displayName: p,
-      email: "",
-      photoURL: "",
-      stats: {
-        gamesPlayed: 0,
-        gamesWon: 0,
-        gamesLost: 0,
-        questionsAnswered: 0,
-        questionsRight: [],
-        questionsWrong: [],
-        bestCategory: '',
-        worstCategory: '',
-      },
-    });
-    return this.players;
+  addPlayer(p: any) {
+    this.players.push(p)
+    console.log(this.players)
   }
   //runs the getQuestions function from questionsService and saves the results to the questions variable array
   getQuestions(params: any): void {
@@ -44,8 +31,12 @@ export class GameControllerService {
         response.results = this.combineAnswers(response.results);
         this.questions[player] = response.results;
         console.log(this.questions);
+        if (this.questions[params.playerCount - 1] !== []){
+          this.router.navigate(['trivia-page']);
+        }
       });
     }
+    
   }
   //loops through all questions and puts correct answers into an array, shuffles them and adds the shuffled array as a property to each question
   combineAnswers(questions: any) {
@@ -165,4 +156,6 @@ export class GameControllerService {
   calculateScore(){
     
   }
+
+  
 }

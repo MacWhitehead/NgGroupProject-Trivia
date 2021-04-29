@@ -13,8 +13,8 @@ export class UserDetailsComponent {
   exampleUser: Player[] = [
     {
     displayName: 'user1',
-    email: "test@gmail.com",
-    photoURL: "yeet",
+    email: 'example@example.com',
+    photoURL: "https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
     stats: {
       gamesPlayed: 4,
       gamesWon: 3,

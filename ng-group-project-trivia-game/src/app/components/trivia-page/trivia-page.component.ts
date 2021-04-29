@@ -16,23 +16,19 @@ export class TriviaPageComponent implements OnInit {
   activePlayer: any;
   players: Player[] = [];
   questions: any[] = [];
-  isGameStarted: any;
+  isGameStarted: boolean;
 
   constructor(public questionsService: QuestionsService, public gameService: GameControllerService, public playerService: PlayerService) {}
 
   ngOnInit(): void {
     //getQuestions service logic currently depends on having each property defined in the parameter. "any" value is take as empty string
-    this.getQuestions({ amount: 10, category: '', difficulty: '', type: '', playerCount: 4 });
-    this.isGameStarted = false;
+    this.startGame()
   }
   //Pushes a player object based on Player interface layout to players variable
-  addPlayer(p: string): void {
-    this.players = this.gameService.addPlayer(p);
-    console.log(this.players)
-  }
+  
   //runs the getQuestions function from questionsService and saves the results to the questions variable array
-  getQuestions(params: any): void {
-    this.gameService.getQuestions(params);
+  getQuestions(): void {
+    this.questions = this.gameService.questions;
   }
   
   //changes isGameStarted to true so long as there is a player for rendering questions, sets first questions and player
