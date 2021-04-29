@@ -2,6 +2,9 @@ mat-card {
   width: auto;
   height: auto;
 }
+h1 {
+  vertical-align: top;
+}
 
 td,
 th {
@@ -37,4 +40,25 @@ table {
 
 .title {
   text-align: center;
+}
+
+.text-color {
+  color: white;
+}
+
+.win-loss {
+  background-color: #00FFD4;
+}
+
+.questions {
+  background-color: #00FF15;
+}
+
+.highlights-header {
+  background-color: #00A6FF;
+}
+
+img {
+  width: 65px;
+  height: 65px;
 }

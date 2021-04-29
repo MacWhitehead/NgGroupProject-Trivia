@@ -1,43 +1,50 @@
 <mat-card>
-  <h1 class="title">{{ exampleUser[0].displayName }} Stats</h1>
+  <mat-card-header>
+    <img mat-card-avatar src="{{ exampleUser[0].photoURL }}" alt="User Photo" />
+    <h1>{{ exampleUser[0].displayName }} Details</h1>
+  </mat-card-header>
 
-  <table>
-    <tr>
-      <th>Win loss ratio</th>
-      <th>Questions ratio</th>
-      <th>Highlights</th>
-    </tr>
-    <tr>
-      <td>
-        Games Played: {{ exampleUser[0].stats.gamesPlayed }} <br />
-        Win rate: {{ winLossPercent }}%
-            <mat-progress-spinner
+  <mat-card>
+    <table>
+      <tr>
+        <th class="win-loss text-color">Win loss ratio</th>
+        <th class="questions text-color">Questions ratio</th>
+        <th class="highlights-header text-color">Highlights</th>
+      </tr>
+      <tr>
+        <td>
+          Games Played: {{ exampleUser[0].stats.gamesPlayed }} <br />
+          Win rate: {{ winLossPercent }}%
+          <mat-progress-spinner
             value="{{ winLossPercent }}"
             mode="determinate"
             class="spinner1"
             style="margin: 0 auto"
           >
           </mat-progress-spinner>
-      </td>
-      <td>
-        Questions Answered: {{ exampleUser[0].stats.questionsAnswered }} <br />
-        Percent of questions correct: {{correctIncorrectPercent}}%
-        <mat-progress-spinner
-          style="margin: 0 auto"
-          value="{{ correctIncorrectPercent }}"
-          mode="determinate"
-          class="spinner2"
-        >
-        </mat-progress-spinner>
-      </td>
-      <td class="highlights">
-        <span class="boldText">Best category:</span>
-        <br />
-        {{ exampleUser[0].stats.bestCategory }} <br /> <br>
-        <span class="boldText">Worst category:</span>
-         <br />
-        {{ exampleUser[0].stats.worstCategory }}
-      </td>
-    </tr>
-  </table>
+        </td>
+        <td>
+          Questions Answered: {{ exampleUser[0].stats.questionsAnswered }}
+          <br />
+          Percent of questions correct: {{ correctIncorrectPercent }}%
+          <mat-progress-spinner
+            style="margin: 0 auto"
+            value="{{ correctIncorrectPercent }}"
+            mode="determinate"
+            class="spinner2"
+          >
+          </mat-progress-spinner>
+        </td>
+        <td class="highlights">
+          <span class="boldText">Best category:</span>
+          <br />
+          {{ exampleUser[0].stats.bestCategory }} <br />
+          <br />
+          <span class="boldText">Worst category:</span>
+          <br />
+          {{ exampleUser[0].stats.worstCategory }}
+        </td>
+      </tr>
+    </table>
+  </mat-card>
 </mat-card>

@@ -28,20 +28,12 @@ export class UserDetailsComponent {
     }
   ]
 
-  colors = [
-    {color: '#FF0000'},
-    {color: '#FFEA00'},
-    {color: '#91FF00'},
-    {color: '#00A6FF'},
-  ];
   constructor() {}
 
   ngOnInit(): void {
     this.getPercentages();
-    console.log(this.colors[0].color)
   }
 
-  
   getPercentages() {
     let wins = this.exampleUser[0].stats.gamesWon;
     let totalGames = this.exampleUser[0].stats.gamesPlayed;

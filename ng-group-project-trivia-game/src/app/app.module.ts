@@ -12,8 +12,6 @@ import { AppComponent } from './app.component';
 import { TriviaPageComponent } from './components/trivia-page/trivia-page.component';
 import { HttpClientModule } from '@angular/common/http';
 
-import { UserDetailsComponent } from './components/user-details/user-details.component';
-
 //Mats
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatCardModule} from '@angular/material/card';
@@ -33,7 +31,8 @@ import {MatTableModule} from '@angular/material/table';
 import { CreateGameComponent } from './components/create-game/create-game.component';
 import { environment } from 'src/environments/environment';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-
+import { UserDetailsComponent } from './components/user-details/user-details.component';
+import {LoginComponent} from './components/login/login.component'
 
 @NgModule({
   declarations: [
@@ -41,7 +40,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     TriviaPageComponent,
     UserDetailsComponent,
     CreateGameComponent,
-    NavBarComponent
+    NavBarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
