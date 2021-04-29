@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit {
             worstCategory: '',
           },
         })
-        console.log(this.hostService.hostPlayer)
-        console.log(this.hostService.nonHostPlayers);
+        // console.log(this.hostService.hostPlayer)
+        // console.log(this.hostService.nonHostPlayers);
         this.router.navigate(['user-details']);
       }
     });
