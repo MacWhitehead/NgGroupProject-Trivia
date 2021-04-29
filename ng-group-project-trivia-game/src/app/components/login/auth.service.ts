@@ -7,8 +7,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/firestore';
 import { User } from '../../interfaces/user';
-import { Observable, pipe} from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable} from 'rxjs';
 
 
 @Injectable({

@@ -20,4 +20,21 @@
     background-color: #00850b;
     color: white;
   }
-  
+  .welcome {
+    text-align: center;
+    text-decoration: wavy;
+    font-size: 45px;
+  }
+  .intro {
+    text-align: center;
+  }
+  .logButton {
+    display: flex;
+    justify-content: center;
+  } 
+  .starting {
+    display: block;
+  }
+  mat-card {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
