@@ -122,7 +122,7 @@ export class CreateGameComponent implements OnInit {
   }
 
   setGameData(data: any[]): void{
-    let playerCount = data[0] + 1;
+    let playerCount = data[0];
     let category = this.categories.find(c => c.title === data[1]);
     let difficulty = data[2];
     let type = data[3];
@@ -138,6 +138,7 @@ export class CreateGameComponent implements OnInit {
         this.gameController.addPlayer(player)
       }
     }
+    
     if (difficulty == 'Any'){
       difficulty = '';
     }
@@ -150,8 +151,14 @@ export class CreateGameComponent implements OnInit {
     if (type == 'True / False'){
       type = 'boolean';
       }
-    let params = {amount: amount, category: category.categoryNumber, difficulty: difficulty, type: type, playerCount: playerCount}
+    if (category.title === 'Any Category'){
+        category = '';
+        let params = {amount: amount, category: category, difficulty: difficulty, type: type, playerCount: playerCount}
     this.gameController.getQuestions(params)
+      } else {
+        let params = {amount: amount, category: category.categoryNumber, difficulty: difficulty, type: type, playerCount: playerCount}
+        this.gameController.getQuestions(params)
+      }
   }
 
 }

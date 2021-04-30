@@ -20,7 +20,7 @@ export class QuestionsService {
     } else {
       amount = '';
     }
-
+    console.log(params.category)
     if (params.category !== '') {
       category = 'category=' + params.category + '&';
     } else {
