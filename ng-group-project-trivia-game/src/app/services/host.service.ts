@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces/user'
+import { Router } from '@angular/router';
+import { User } from '../interfaces/user';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HostService {
-  constructor() { }
+  constructor(
+    public router: Router
+  ) {}
+
   userLoggedIn = false;
+
   hostPlayer: User = {
     displayName: '',
     email: '',
@@ -18,16 +23,23 @@ export class HostService {
       questionsRight: [],
       questionsWrong: [],
       bestCategory: '',
-      worstCategory: ''
-    }
-  }
-  nonHostPlayers = []
-  allPlayers = []
+      worstCategory: '',
+    },
+  };
+
+  nonHostPlayers = [];
+
+  allPlayers = [];
   setHostPlayer(x: User) {
-    this.hostPlayer = x
+    this.hostPlayer = x;
     this.userLoggedIn = true;
-    this.nonHostPlayers = this.allPlayers.filter(x => {
-      return x.email != this.hostPlayer.email
-    })
+    this.nonHostPlayers = this.allPlayers.filter((x) => {
+      return x.email != this.hostPlayer.email;
+    });
+  }
+
+  logOut() {
+    this.router.navigate(['login-page'])
+    console.log(this.allPlayers)
   }
 }

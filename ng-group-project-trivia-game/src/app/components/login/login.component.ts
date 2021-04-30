@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
         })
         // console.log(this.hostService.hostPlayer)
         // console.log(this.hostService.nonHostPlayers);
-        this.router.navigate(['user-details']);
+        this.router.navigate(['/']);
       }
     });
   }
