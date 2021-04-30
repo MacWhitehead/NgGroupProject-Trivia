@@ -117,7 +117,7 @@ export class CreateGameComponent implements OnInit {
     }
 
   submitForm() {
-    return this.selectedFormValues;
+    this.setGameData(this.selectedFormValues);
   }
 
   setGameData(data: any[]): void{
