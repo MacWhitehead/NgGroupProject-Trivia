@@ -4,7 +4,6 @@ import { Player } from '../interfaces/player';
 import { Router } from '@angular/router';
 import {
   AngularFirestore,
-  AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 import { shareReplay, } from 'rxjs/operators';
 import { AuthService } from '../components/login/auth.service';
@@ -108,7 +107,7 @@ export class GameControllerService {
       currentQuestion === lastQuestionForGame &&
       currentPlayer === lastPlayer
     ) {
-      this.getResults(this.players);
+      this.updatePlayerData(this.players);
     } else if (
       /* ----- IF LAST PLAYER IN ARRAY AND NOT LAST QUESTION IN GAME, NEXT PLAYER IS FIRST PLAYER ----- */
       currentPlayer === lastPlayer &&
@@ -132,12 +131,12 @@ export class GameControllerService {
     }
     this.resetTurn();
   }
-
+  //sets the canSubmit flag for the html ngIf to return true and render the Submit button
   setSelected(a: any): void {
     this.selectedAnswer = a;
     this.canSubmit = true;
   }
-
+  //Returns boolean to highlight selected answer in HTML
   amISelected(a: any) {
     if (this.selectedAnswer === a) {
       return true;
@@ -145,27 +144,45 @@ export class GameControllerService {
       return false;
     }
   }
-
+//sets AnswerSubmitted to true for Next question button to render in html. Resets canSubmit to hide the submit button
   submitAnswer(a: any): void {
     if (this.selectedAnswer !== '') {
       this.answerSubmitted = true;
       this.canSubmit = false;
     }
   }
-
+  //Returns boolean to render the next button or not
   isAnswerSubmitted() {
     if (this.answerSubmitted == true) {
       return true;
     } else return false;
   }
-
+  //resets selected answer to nothing and answer submitted for Next button to hide and submit button to hide
   resetTurn() {
     this.answerSubmitted = false;
     this.selectedAnswer = '';
   }
-
-  getResults(pd: any[]){
-    console.log(pd)
+ 
+  updatePlayerData(pd: any[]){
+    //calculate who won the game, if tie no win or loss is made for those that tied;
+    let winner = this.whoWon();
+    pd.forEach(p => {
+      if (winner.length === 0){
+        if (winner === p){
+          p.gamesWon = 1;
+          p.gamesPlayed = 1;
+        }
+      }
+       else if (winner.length > 1){
+        if (!winner.includes(p)){
+          p.gamesLost = 1;
+          p.gamesPlayed = 1;
+        }
+      }
+    })
+    
+    //filters through all users from firebase via authService and pushes entries that match current player's email
+    console.log(pd);
     let fsData = [];
     this.authService.getUsers().subscribe((users: any) => {
       pd.forEach(p => {
@@ -174,7 +191,7 @@ export class GameControllerService {
         console.log(fsData)
       })
   })
-
+  //for each entry from Firebase, find matching player data from game and update their scores.  
   fsData.forEach(u => {
     let player = pd.find(p => p.email === u.email)
     player.questionsRight.forEach(item => {
@@ -183,8 +200,25 @@ export class GameControllerService {
         targetValue.count += item.count;
         //save player data
       }
-    })
+    });
+  });
+}
+
+whoWon(){
+  let winning = this.players[0];
+  let tieArray = [];
+  this.players.forEach(p => {
+    if (p.stats.questionsRight.length > winning.stats.questionsRight.length){
+      winning = p;
+      tieArray[0] = p;
+    } else if (p.stats.questionsRight.length === winning.stats.questionsRight.length){
+      tieArray.push(p);
+    }
   })
+  if (tieArray.length > 1){
+    return tieArray
+  } 
+  else return [winning];
 }
 
   savePlayerData(){}
