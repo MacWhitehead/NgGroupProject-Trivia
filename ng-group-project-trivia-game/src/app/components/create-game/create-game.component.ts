@@ -16,7 +16,7 @@ export class CreateGameComponent implements OnInit {
 
   formValid = true;
 
-  playerTotal: number;
+  selectedFriends: any[] = [];
   existingUsers: any[] = [];
 
   selectedCount: number;
@@ -108,7 +108,7 @@ export class CreateGameComponent implements OnInit {
       this.selectedCategory,
       this.selectedDifficulty,
       this.selectedQuestionType,
-      this.playerTotal,
+      this.selectedFriends,
       this.selectQuestionCount
     );
     if (!this.selectedFormValues.some((item) => item == undefined)) {

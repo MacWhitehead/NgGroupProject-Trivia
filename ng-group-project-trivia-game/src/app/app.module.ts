@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TriviaPageComponent } from './components/trivia-page/trivia-page.component';
 import { HttpClientModule } from '@angular/common/http';
-import {LoginComponent} from './components/login/login.component'
 
 //Mats
 import {MatToolbarModule} from '@angular/material/toolbar';
