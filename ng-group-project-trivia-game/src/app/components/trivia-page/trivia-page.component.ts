@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionsService } from '../../services/questions.service';
+import { HostService } from 'src/app/services/host.service';
 import { Player } from '../../interfaces/player';
 import { GameControllerService } from '../../services/game-controller.service';
 import { PlayerService } from '../../services/players.service'
@@ -18,7 +18,7 @@ export class TriviaPageComponent implements OnInit {
   questions: any[] = [];
   isGameStarted: boolean;
 
-  constructor(public questionsService: QuestionsService, public gameService: GameControllerService, public playerService: PlayerService) {}
+  constructor(public gameService: GameControllerService, public playerService: PlayerService, hostService: HostService) {}
 
   ngOnInit(): void {
     //getQuestions service logic currently depends on having each property defined in the parameter. "any" value is take as empty string
@@ -37,7 +37,7 @@ export class TriviaPageComponent implements OnInit {
     this.questions = this.gameService.questions
     this.activePlayer = this.gameService.activePlayer
     this.activeQuestion = this.gameService.activeQuestion;
-    
+    this.players = this.gameService.players;
     this.isGameStarted = this.gameService.isGameStarted;
   }
   //runs nextQuestion from game-controller service and pulls the active player and active question values
@@ -64,7 +64,7 @@ export class TriviaPageComponent implements OnInit {
   submitAnswer(a: any) {
     this.gameService.submitAnswer(a);
     this.calculateScore(this.activePlayer, this.activeQuestion, a);
-    console.log(this.players)
+    this.canSubmit = this.gameService.canSubmit
   }
 
   isAnswerSubmitted(){
@@ -73,7 +73,6 @@ export class TriviaPageComponent implements OnInit {
   
   resetTurn(){
     this.selectedAnswer = this.gameService.selectedAnswer;
-    this.canSubmit = this.gameService.canSubmit;
   }
 
   calculateScore(p: Player[], q:any, a: any) {
@@ -107,5 +106,6 @@ export class TriviaPageComponent implements OnInit {
       return `${winning.displayName} is currently in the lead!`
     } 
   }
+
 
 }
