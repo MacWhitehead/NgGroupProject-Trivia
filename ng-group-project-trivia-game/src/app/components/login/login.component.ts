@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
               displayName: x.displayName,
               email: x.email,
               photoURL: x.photoURL,
+              id: x.id,
               stats: {
                 gamesPlayed: x.stats.gamesPlayed,
                 gamesWon: x.stats.gamesWon,
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
                 questionsWrong: x.stats.questionsWrong,
                 bestCategory: x.stats.bestCategory,
                 worstCategory: x.stats.worstCategory,
+               
               },
             });
           }
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
         console.log(
           `New user added to database :) ${this.authService.host.displayName}`
         );
-        this.authService.addUser()
+        this.authService.addUser();
         this.hostService.setHostPlayer({
           displayName: this.authService.host.displayName,
           email: this.authService.host.email,

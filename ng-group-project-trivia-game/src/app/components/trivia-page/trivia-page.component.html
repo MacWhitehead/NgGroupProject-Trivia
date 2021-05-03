@@ -67,6 +67,6 @@
 <mat-card class="player-header" *ngIf="isGameStarted">
   <h4>Active Player: {{ activePlayer.displayName }}</h4>
   <p>Category: {{ activeQuestion.category }}</p>
-  <!-- <p [innerHTML]="displayCurrentPlayerScore()"></p>
-      <p [innerHTML]="whoIsWinning()"></p> -->
+  <p [innerHTML]="displayCurrentPlayerScore()"></p>
+  <p [innerHTML]="whoIsWinning()"></p> 
 </mat-card>
