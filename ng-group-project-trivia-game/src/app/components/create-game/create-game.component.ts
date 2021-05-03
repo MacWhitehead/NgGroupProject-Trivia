@@ -15,6 +15,7 @@ export class CreateGameComponent implements OnInit {
   errorMessage: string;
   onePlayer: boolean = false;
   formValid = true;
+  //Testing merge
 
   selectedFriends: any[] = [];
   existingUsers: any[] = [];
