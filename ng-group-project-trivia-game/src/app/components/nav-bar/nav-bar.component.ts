@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HostService } from 'src/app/services/host.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,7 +10,9 @@ import { Router } from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   constructor(
-    private router: Router) { }
+    private router: Router,
+    public hostService: HostService
+    ) { }
 
   ngOnInit(): void {
   }

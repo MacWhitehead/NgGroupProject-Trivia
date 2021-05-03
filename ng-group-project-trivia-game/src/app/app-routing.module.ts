@@ -8,6 +8,7 @@ import { LoginCheckGuard } from './login-check.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'login-page', component: LoginComponent },
   { path: 'create-game', component: CreateGameComponent, canActivate: [LoginCheckGuard], runGuardsAndResolvers: 'always' },
   {path: 'trivia-page', component: TriviaPageComponent, canActivate: [LoginCheckGuard], runGuardsAndResolvers: 'always'},
   { path: 'user-details', component: UserDetailsComponent, canActivate: [LoginCheckGuard], runGuardsAndResolvers: 'always' },

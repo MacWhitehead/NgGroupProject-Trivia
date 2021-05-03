@@ -15,7 +15,9 @@ import { Observable} from 'rxjs';
 })
 export class AuthService {
   usersCollection: AngularFirestoreCollection<User>;
+
   users: Observable<any>;
+  
   host: User = {
     displayName: '',
     email: '',
@@ -32,9 +34,6 @@ export class AuthService {
     }
   };
 
-  // Get ids for each user, for login assign authService host to
-  // hostService hostPlayer from database
-
   constructor(public afs: AngularFirestore, private afAuth: AngularFireAuth) {
     this.users = this.afs.collection('users').valueChanges();
     this.usersCollection = this.afs.collection('users')
@@ -47,13 +46,14 @@ export class AuthService {
   clearHost() {
     this.host.displayName = ''
     this.host.email = ''
-    this.host.photoURL = ''
+    this.host.photoURL = '' 
   }
 
   addUser() {
     this.usersCollection.add(this.host)
-    this.getUsers().subscribe((data) => {
-      // console.log(data)
+    .then(docRef => {
+      this.usersCollection.doc(docRef.id).update({id: docRef.id})
+      // console.log(`New document's id: ${docRef.id}`)
     })
   }
 

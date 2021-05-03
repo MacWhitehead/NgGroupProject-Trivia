@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
             gamesWon: 0,
             gamesLost: 0,
             questionsAnswered: 0,
-            questionsRight: [],
+            questionsRight: [], 
             questionsWrong: [],
             bestCategory: '',
             worstCategory: '',
