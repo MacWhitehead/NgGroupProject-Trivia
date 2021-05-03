@@ -1,16 +1,19 @@
-import { Injectable, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
+import {
+  Injectable,
+  ɵCompiler_compileModuleSync__POST_R3__,
+} from '@angular/core';
 import { QuestionsService } from '../services/questions.service';
 import { Player } from '../interfaces/player';
 import { Router } from '@angular/router';
-import {
-  AngularFirestore,
-} from '@angular/fire/firestore';
-import { shareReplay, } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+
 import { AuthService } from '../components/login/auth.service';
 @Injectable({
   providedIn: 'root',
 })
 export class GameControllerService {
+  fsPlayers: any[] = [];
   turnNumber: number;
   answerSubmitted: boolean;
   canSubmit: boolean;
@@ -80,6 +83,7 @@ export class GameControllerService {
     this.activeQuestion = this.questions[indexOfPlayer][0];
 
     this.turnNumber = 0;
+    this.getFSDataForPlayers();
   }
 
   nextQuestion(): void {
@@ -144,7 +148,7 @@ export class GameControllerService {
       return false;
     }
   }
-//sets AnswerSubmitted to true for Next question button to render in html. Resets canSubmit to hide the submit button
+  //sets AnswerSubmitted to true for Next question button to render in html. Resets canSubmit to hide the submit button
   submitAnswer(a: any): void {
     if (this.selectedAnswer !== '') {
       this.answerSubmitted = true;
@@ -162,64 +166,107 @@ export class GameControllerService {
     this.answerSubmitted = false;
     this.selectedAnswer = '';
   }
- 
-  updatePlayerData(pd: any[]){
+
+  updatePlayerData(pd: any[]) {
     //calculate who won the game, if tie no win or loss is made for those that tied;
     let winner = this.whoWon();
-    pd.forEach(p => {
-      if (winner.length === 0){
-        if (winner === p){
-          p.gamesWon = 1;
-          p.gamesPlayed = 1;
+    console.log('WINNER IS: ', winner);
+    pd.forEach((p) => {
+      if (winner.length === 1 && pd.length > 1) {
+        if (winner.filter((w) => w.email === p.email).length > 0) {
+          p.stats.gamesWon = 1;
+          p.stats.gamesPlayed = 1;
+        } else if (winner.filter((w) => w.email === p.email).length === 0) {
+          p.stats.gamesLost = 1;
+          p.stats.gamesPlayed = 1;
         }
-      }
-       else if (winner.length > 1){
-        if (!winner.includes(p)){
-          p.gamesLost = 1;
-          p.gamesPlayed = 1;
+      } else if (winner.length > 1) {
+        if (winner.some((w) => w.email === p.email)) {
+          p.stats.gamesPlayed = 1;
+        } else if (winner.filter((w) => w.email === p.email).length === 0) {
+          p.states.gamesPlayed = 1;
+          p.states.gamesLost = 1;
         }
-      }
-    })
-    
-    //filters through all users from firebase via authService and pushes entries that match current player's email
-    console.log(pd);
-    let fsData = [];
-    this.authService.getUsers().subscribe((users: any) => {
-      pd.forEach(p => {
-        let found = users.find(u => u.email === p.email);
-        fsData.push(found);
-        console.log(fsData)
-      })
-  })
-  //for each entry from Firebase, find matching player data from game and update their scores.  
-  fsData.forEach(u => {
-    let player = pd.find(p => p.email === u.email)
-    player.questionsRight.forEach(item => {
-      if (u.questionsRight.includes(item)){
-        let targetValue = u.questionsRight[u.questionsRight.indexOf(item)];
-        targetValue.count += item.count;
-        //save player data
+      } else if (winner.length === 1 && pd.length === 1) {
+        p.stats.gamesPlayed = 1;
       }
     });
-  });
+    console.log('updated pd with game values', pd);
+
+    //filters through all users from firebase via authService and pushes entries that match current player's email
+    console.log(
+      'INITIAL INFORMATION FROM FIREBASE FOR EACH PLAYER',
+      this.fsPlayers
+    );
+    //for each entry from Firebase, find matching player data from game and update their stats.
+    this.fsPlayers.forEach((u) => {
+      let player = pd.find((p) => p.email === u.email);
+      console.log('PLAYER IS', player);
+      //IF questionRight contains an entry with same category, increment count, else push entry to questionsRight from playerdata
+      player.stats.questionsRight.forEach((item) => {
+        if (
+          u.stats.questionsRight.includes((i) => i.category === item.category)
+        ) {
+          let targetValue = u.questionsRight[u.questionsRight.indexOf(item)];
+          targetValue.count += item.count;
+        } else if (
+          !u.stats.questionsRight.includes((i) => i.category === item.category)
+        ) {
+          u.stats.questionsRight.push(item);
+        }
+      });
+      //IF questionWrong contains an entry with same category, increment count, else push entry to questionsRight from playerdata
+      player.stats.questionsWrong.forEach((item) => {
+        if (
+          u.stats.questionsWrong.includes((i) => i.category === item.category)
+        ) {
+          let targetValue = u.questionsWrong[u.questionsWrong.indexOf(item)];
+          targetValue.count += item.count;
+        } else if (
+          !u.stats.questionsWrong.includes((i) => i.category === item.category)
+        ) {
+          u.stats.questionsWrong.push(item);
+        }
+      });
+      console.log(player.stats);
+      console.log(u.stats);
+      u.stats.gamesPlayed += player.stats.gamesPlayed;
+      u.stats.gamesWon += player.stats.gamesWon;
+      u.stats.gamesLost += player.stats.gamesLost;
+    });
+    console.log('UPDATED FSDATA: ', this.fsPlayers);
+
+ 
+  }
+
+  whoWon() {
+    let winning = this.players[0];
+    let tieArray = [];
+    this.players.forEach((p) => {
+      if (p.stats.questionsRight.length > winning.stats.questionsRight.length) {
+        winning = p;
+        tieArray[0] = p;
+      } else if (
+        p.stats.questionsRight.length === winning.stats.questionsRight.length
+      ) {
+        tieArray.push(p);
+      }
+    });
+    if (tieArray.length > 1) {
+      return tieArray;
+    } else return [winning];
+  }
+
+ 
+  getFSDataForPlayers() {
+    this.authService.getUsers().subscribe((users: any) => {
+      this.players.forEach((p) => {
+        let found = users.find((u) => u.email === p.email);
+        this.fsPlayers.push(found);
+        console.log('INITIAL PULL FROM FIREBASE:', this.fsPlayers);
+      });
+    });
+  }
 }
 
-whoWon(){
-  let winning = this.players[0];
-  let tieArray = [];
-  this.players.forEach(p => {
-    if (p.stats.questionsRight.length > winning.stats.questionsRight.length){
-      winning = p;
-      tieArray[0] = p;
-    } else if (p.stats.questionsRight.length === winning.stats.questionsRight.length){
-      tieArray.push(p);
-    }
-  })
-  if (tieArray.length > 1){
-    return tieArray
-  } 
-  else return [winning];
-}
 
-  savePlayerData(){}
-}
