@@ -1,3 +1,7 @@
+ import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../interfaces/user';
@@ -5,9 +9,14 @@ import { User } from '../interfaces/user';
   providedIn: 'root',
 })
 export class HostService {
+  usersCollection: AngularFirestoreCollection<User>;
+
   constructor(
-    public router: Router
-  ) {}
+    public router: Router,
+    public afs: AngularFirestore
+  ) {
+    this.usersCollection = this.afs.collection('users')
+  }
 
   userLoggedIn = false;
 

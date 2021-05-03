@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
             gamesWon: 0,
             gamesLost: 0,
             questionsAnswered: 0,
-            questionsRight: [],
+            questionsRight: [], 
             questionsWrong: [],
             bestCategory: '',
             worstCategory: '',
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
         })
         // console.log(this.hostService.hostPlayer)
         // console.log(this.hostService.nonHostPlayers);
-        this.router.navigate(['/']);
+        this.router.navigate(['user-details']);
       }
     });
   }
