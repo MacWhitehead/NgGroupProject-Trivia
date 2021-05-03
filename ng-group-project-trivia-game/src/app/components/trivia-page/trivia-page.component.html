@@ -1,72 +1,85 @@
-<mat-card>
-  <div class="flex-container">
-    <mat-card-title [innerHTML]="activeQuestion.question"></mat-card-title>
-    <mat-card-content class="flex-container">
-      <div *ngIf="activeQuestion.type === 'multiple'" class="flex-container">
-        <div
-          *ngFor="let answer of activeQuestion.answersArray"
-          class="flex-answer-container"
-        >
-          <div class="answer-text">
-            <mat-card
-              [style.background]="amISelected(answer) ? '#00FFD4' : 'white'"
-              (click)="setSelected(answer)"
-              [innerHTML]="answer.value"
-            ></mat-card>
-          </div>
-          <div>
-            <mat-icon
-              *ngIf="isAnswerSubmitted()"
-              [innerHtml]="answer.correct ? 'check_circle' : 'close'"
-              [ngClass]="answer.correct ? 'correct' : 'incorrect'"
-            ></mat-icon>
-          </div>
-        </div>
+<div class="flex-answer-container">
+  <mat-card class="player-header" *ngIf="isGameStarted">
+    <mat-card-content>
+      <h2>Active Player:</h2>
+      <div class="flex-answer-container">
+        <img
+          mat-card-avatar
+          src="{{ activePlayer.photoURL }}"
+          alt="User Avatar"
+        />
+        <h3>{{ activePlayer.displayName }}</h3>
       </div>
-      <div *ngIf="activeQuestion.type === 'boolean'" class="flex-container">
-        <div
-          *ngFor="let answer of activeQuestion.answersArray"
-          class="flex-answer-container"
-        >
-          <div>
-            <mat-card
-              [style.background]="amISelected(answer) ? '#00FFD4' : 'white'"
-              (click)="setSelected(answer)"
-              [innerHTML]="answer.value"
-            ></mat-card>
-          </div>
-          <div>
-            <mat-icon
-              *ngIf="isAnswerSubmitted()"
-              [innerHtml]="answer.correct ? 'check_circle' : 'close'"
-              [ngClass]="answer.correct ? 'correct' : 'incorrect'"
-            ></mat-icon>
-          </div>
-        </div>
-      </div>
+      <h2>Category:</h2>
+      <h3>{{ activeQuestion.category }}</h3>
+      <p [innerHTML]="displayCurrentPlayerScore()"></p>
+      <p [innerHTML]="whoIsWinning()"></p>
     </mat-card-content>
-    <mat-card-actions>
-      <button
-        mat-raised-button
-        *ngIf="canSubmit"
-        (click)="submitAnswer(selectedAnswer, player)"
-      >
-        Submit Answer
-      </button>
-      <button
-        mat-raised-button
-        *ngIf="isAnswerSubmitted()"
-        (click)="nextQuestion()"
-      >
-        Next
-      </button>
-    </mat-card-actions>
-  </div>
-</mat-card>
+  </mat-card>
 
-<mat-card class="player-header" *ngIf="isGameStarted">
-  <h4>Active Player: {{ activePlayer.displayName }}</h4>
-  <p>Category: {{ activeQuestion.category }}</p>
-  <!-- <p [innerHTML]="displayCurrentPlayerScore()"></p>
-      <p [innerHTML]="whoIsWinning()"></p> -->
-</mat-card>
+  <mat-card class="questions-card">
+    <div class="flex-container">
+      <mat-card-title [innerHTML]="activeQuestion.question"></mat-card-title>
+      <mat-card-content class="flex-container">
+        <div *ngIf="activeQuestion.type === 'multiple'" class="flex-container">
+          <div
+            *ngFor="let answer of activeQuestion.answersArray"
+            class="flex-answer-container"
+          >
+            <div class="answer-text">
+              <mat-card
+                [style.background]="amISelected(answer) ? '#00FFD4' : 'white'"
+                (click)="setSelected(answer)"
+                [innerHTML]="answer.value"
+              ></mat-card>
+            </div>
+            <div>
+              <mat-icon
+                *ngIf="isAnswerSubmitted()"
+                [innerHtml]="answer.correct ? 'check_circle' : 'close'"
+                [ngClass]="answer.correct ? 'correct' : 'incorrect'"
+              ></mat-icon>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="activeQuestion.type === 'boolean'" class="flex-container">
+          <div
+            *ngFor="let answer of activeQuestion.answersArray"
+            class="flex-answer-container"
+          >
+            <div>
+              <mat-card
+                [style.background]="amISelected(answer) ? '#00FFD4' : 'white'"
+                (click)="setSelected(answer)"
+                [innerHTML]="answer.value"
+              ></mat-card>
+            </div>
+            <div>
+              <mat-icon
+                *ngIf="isAnswerSubmitted()"
+                [innerHtml]="answer.correct ? 'check_circle' : 'close'"
+                [ngClass]="answer.correct ? 'correct' : 'incorrect'"
+              ></mat-icon>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          *ngIf="canSubmit"
+          (click)="submitAnswer(selectedAnswer, player)"
+        >
+          Submit Answer
+        </button>
+        <button
+          mat-raised-button
+          *ngIf="isAnswerSubmitted()"
+          (click)="nextQuestion()"
+        >
+          Next
+        </button>
+      </mat-card-actions>
+    </div>
+  </mat-card>
+</div>
