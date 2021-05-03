@@ -219,8 +219,9 @@ export class GameControllerService {
 
   saveData(){
    this.players.forEach(p => {
-    this.afs.collection('users').doc(p.id).update(p.stats);
+    this.afs.collection('users').doc(p.id).update({stats: p.stats});
    })
+   this.router.navigate(['user-details']);
   }
 }
 
