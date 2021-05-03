@@ -13,13 +13,18 @@ export class CreateGameComponent implements OnInit {
   selectQuestionCount: number;
   validQuestionTotal = false;
   errorMessage: string;
-
+  onePlayer: boolean = false;
   formValid = true;
 
   selectedFriends: any[] = [];
   existingUsers: any[] = [];
 
   selectedCount: number;
+  setPlayerCount() {
+    console.log(this.selectedCount)
+    if (this.selectedCount == 1) this.onePlayer = true;
+    else this.onePlayer = false;
+  }
   playerCount: any[] = [1, 2, 3];
 
   selectedCategory: string;
