@@ -1,11 +1,10 @@
 import {
   Injectable,
-  ɵCompiler_compileModuleSync__POST_R3__,
 } from '@angular/core';
 import { QuestionsService } from '../services/questions.service';
 import { Player } from '../interfaces/player';
 import { Router } from '@angular/router';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore} from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 
 import { AuthService } from '../components/login/auth.service';

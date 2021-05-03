@@ -1,5 +1,5 @@
 <div class="flex-answer-container">
-  <mat-card class="player-header" *ngIf="isGameStarted">
+  <mat-card class="player-header" *ngIf="isGameStarted" [style.background-color]="colors[players.indexOf(activePlayer)]">
     <mat-card-content>
       <h2>Active Player:</h2>
       <div class="flex-answer-container">
