@@ -14,6 +14,7 @@ import { Observable} from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
+  
   usersCollection: AngularFirestoreCollection<User>;
 
   users: Observable<any>;
