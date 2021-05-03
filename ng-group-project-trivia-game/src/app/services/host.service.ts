@@ -3,7 +3,6 @@
   AngularFirestoreCollection,
 } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import { AuthService } from '../components/login/auth.service';
 import { User } from '../interfaces/user'
 import { Router } from '@angular/router';
 @Injectable({
@@ -48,11 +47,6 @@ export class HostService {
     this.nonHostPlayers = this.allPlayers.filter((x) => {
       return x.email != this.hostPlayer.email;
     });
-  }
-
-  logOut() {
-    this.router.navigate(['login-page'])
-    console.log(this.allPlayers)
   }
 
 }

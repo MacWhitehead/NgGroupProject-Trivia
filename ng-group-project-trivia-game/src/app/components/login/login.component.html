@@ -11,7 +11,7 @@
     </p>
 
     <div class="logButton">
-      <button mat-raised-button (click)="loggingIn()">
+      <button mat-raised-button *ngIf="buttonRendered" (click)="loggingIn()">
         Login with Google....if you dare
       </button>
     </div>

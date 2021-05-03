@@ -12,8 +12,10 @@ import { HostService } from '../../services/host.service';
 export class LoginComponent implements OnInit {
   users: User[];
   emails: String[];
+  buttonRendered: boolean;
 
   loggingIn() {
+    this.buttonRendered = false;
     this.authService.GoogleAuthLogin().then(() => {
       if (this.emails.includes(this.authService.host.email)) {
         console.log(
@@ -80,6 +82,7 @@ export class LoginComponent implements OnInit {
       this.emails = this.users.map((user) => user.email);
       this.hostService.allPlayers = users;
       // console.log(this.hostService.allPlayers);
+      this.buttonRendered = true;
     });
   }
 }
