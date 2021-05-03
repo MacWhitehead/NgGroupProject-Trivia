@@ -10,6 +10,7 @@ export interface Player {
         questionsRight: any[],
         questionsWrong: any[],
         bestCategory: string,
-        worstCategory: string
+        worstCategory: string,
+        id? : string
     }
 }

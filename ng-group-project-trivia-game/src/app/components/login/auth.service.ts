@@ -54,7 +54,7 @@ export class AuthService {
     this.usersCollection.add(this.host)
     .then(docRef => {
       this.usersCollection.doc(docRef.id).update({id: docRef.id})
-      // console.log(`New document's id: ${docRef.id}`)
+      // console.log(`New document's id: ${docRef.id}`);
     })
   }
 
