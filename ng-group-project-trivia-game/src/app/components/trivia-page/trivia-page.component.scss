@@ -7,7 +7,9 @@
     display: inline-flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
+}
+.questions-card {
+    width: 70%;
 }
 
 .answer-text {
@@ -36,4 +38,5 @@
 
 .player-header {
     background-color: rgb(184, 179, 179);
+    width: 30%;
 }
