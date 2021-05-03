@@ -2,6 +2,7 @@ export interface Player {
     displayName: string,
     email: string,
     photoURL: string,
+    id? : string
     stats: {
         gamesPlayed: number,
         gamesWon: number,
@@ -11,6 +12,5 @@ export interface Player {
         questionsWrong: any[],
         bestCategory: string,
         worstCategory: string,
-        id? : string
     }
 }

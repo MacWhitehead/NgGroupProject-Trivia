@@ -37,7 +37,7 @@ export class AuthService {
 
   constructor(public afs: AngularFirestore, private afAuth: AngularFireAuth) {
     this.users = this.afs.collection('users').valueChanges();
-    this.usersCollection = this.afs.collection('users')
+    this.usersCollection = this.afs.collection('users');
   }
 
   getUsers() {
