@@ -9,7 +9,7 @@
           [(ngModel)]="selectedCount"
           name="playerCount"
           (selectionChange)="
-            getPlayerCount(selectedCount); isFormValid()
+            getPlayerCount(selectedCount); isFormValid(); setPlayerCount()
           "
         >
           <mat-option
@@ -63,7 +63,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="example-full-width friends">
+      <mat-form-field *ngIf="!onePlayer" appearance="fill" class="example-full-width friends">
         <mat-label [ngClass]="'text-color'">Additional Players</mat-label>
         <mat-select
           [(ngModel)]="selectedFriends"
