@@ -88,7 +88,7 @@ export class TriviaPageComponent implements OnInit {
   whoIsWinning(){
     let winning = this.players[0];
     let tieArray = [];
-    console.log(this.players)
+    
     this.players.forEach(p => {
       if (p.stats.questionsRight.length > winning.stats.questionsRight.length){
         winning = p;
@@ -107,6 +107,4 @@ export class TriviaPageComponent implements OnInit {
       return `${winning.displayName} is currently in the lead!`
     } 
   }
-
-
 }
