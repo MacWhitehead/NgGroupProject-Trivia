@@ -1,5 +1,5 @@
-import { Component, OnInit, ResolvedReflectiveFactory } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component, OnInit, } from '@angular/core';
+import { Router} from '@angular/router';
 import { User } from 'src/app/interfaces/user';
 import { AuthService } from './auth.service';
 import { HostService } from '../../services/host.service';
@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
               displayName: x.displayName,
               email: x.email,
               photoURL: x.photoURL,
+              id: x.id,
               stats: {
                 gamesPlayed: x.stats.gamesPlayed,
                 gamesWon: x.stats.gamesWon,
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
                 questionsWrong: x.stats.questionsWrong,
                 bestCategory: x.stats.bestCategory,
                 worstCategory: x.stats.worstCategory,
+               
               },
             });
           }
@@ -47,7 +49,7 @@ export class LoginComponent implements OnInit {
         console.log(
           `New user added to database :) ${this.authService.host.displayName}`
         );
-        this.authService.addUser()
+        this.authService.addUser();
         this.hostService.setHostPlayer({
           displayName: this.authService.host.displayName,
           email: this.authService.host.email,

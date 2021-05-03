@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { HostService } from 'src/app/services/host.service';
 import { Player } from '../../interfaces/player';
 import { GameControllerService } from '../../services/game-controller.service';
-import { PlayerService } from '../../services/players.service'
+import { PlayerService } from '../../services/players.service';
+
 @Component({
   selector: 'app-trivia-page',
   templateUrl: './trivia-page.component.html',
   styleUrls: ['./trivia-page.component.scss'],
 })
 export class TriviaPageComponent implements OnInit {
-  
+  colors: any[] = [];
   canSubmit: boolean;
   selectedAnswer: any;
   activeQuestion: any;
@@ -22,7 +23,8 @@ export class TriviaPageComponent implements OnInit {
 
   ngOnInit(): void {
     //getQuestions service logic currently depends on having each property defined in the parameter. "any" value is take as empty string
-    this.startGame()
+    this.startGame();
+    this.setColors();
   }
   //Pushes a player object based on Player interface layout to players variable
   
@@ -106,5 +108,16 @@ export class TriviaPageComponent implements OnInit {
     } else {
       return `${winning.displayName} is currently in the lead!`
     } 
+  }
+
+  setColors(): void{
+    let colorsArray= ['#FF00000', '#FF7700', '#FFEA00', '#91FF00', '#00FF15', '#00A6FF', '#0062FF', '#9900FF', '#FB0FF'];
+    let count = this.gameService.players.length;
+    for (let i = 0; i < count; i++){
+      let colorIndex = Math.floor(Math.random()*colorsArray.length);
+      this.colors.push(colorsArray[colorIndex]);
+      colorsArray = colorsArray.filter(c => c != colorsArray[colorIndex]);
+    }
+    console.log(this.colors)
   }
 }

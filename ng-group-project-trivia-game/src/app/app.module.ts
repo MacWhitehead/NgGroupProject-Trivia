@@ -26,6 +26,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import {MatTableModule} from '@angular/material/table';
 import { CreateGameComponent } from './components/create-game/create-game.component';
@@ -81,7 +82,8 @@ import {LoginComponent} from './components/login/login.component'
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireAuthModule,
-    MatTooltipModule
+    MatTooltipModule, 
+    MatSidenavModule
 
   ],
   bootstrap: [AppComponent]

@@ -137,11 +137,13 @@ export class CreateGameComponent implements OnInit {
     for (let i = 0; i < playerCount; i++){
       if (i === 0){
         this.gameController.addPlayer(this.hostService.hostPlayer);
+        console.log(this.hostService.hostPlayer)
       } else {
         console.log(this.hostService.nonHostPlayers)
         let player = this.hostService.nonHostPlayers.find(p => p.displayName === data[4][i-1])
         this.gameController.addPlayer(player)
       }
+      console.log(this.gameController.players)
     }
     
     if (difficulty == 'Any'){
