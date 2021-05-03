@@ -236,7 +236,7 @@ export class GameControllerService {
     });
     console.log('UPDATED FSDATA: ', this.fsPlayers);
 
-    this.savePlayerData(this.fsPlayers);
+ 
   }
 
   whoWon() {
@@ -257,21 +257,7 @@ export class GameControllerService {
     } else return [winning];
   }
 
-  savePlayerData(fsp: any) {
-    let collection = this.afs.collection('users');
-    let playerDocId = "";
-    let playerDoc = "";
-    collection.get()
-    .subscribe((snapshot) =>{
-      console.log(snapshot)
-      snapshot.forEach(doc => {
-        console.log(doc.id, '=>', doc.data());
-      
-      });
-    })
-    
-  }
-
+ 
   getFSDataForPlayers() {
     this.authService.getUsers().subscribe((users: any) => {
       this.players.forEach((p) => {
