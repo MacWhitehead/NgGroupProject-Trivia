@@ -1,16 +1,17 @@
-<mat-card>
+<mat-card class="main-card">
   <mat-card-header>
     <img mat-card-avatar src="{{ photoURL }}" alt="User Photo" />
     <h1>{{ displayName }} Details</h1>
   </mat-card-header>
-  <mat-card>
+  <mat-card class="player-stats-card">
+    <mat-error *ngIf="!noPlayerData">You haven't played any games yet! Please click the plus icon to create a new game</mat-error>
     <table>
       <tr>
         <th class="win-loss text-color">Win loss ratio</th>
         <th class="questions text-color">Questions ratio</th>
         <th class="highlights-header text-color">Highlights</th>
       </tr>
-      <tr>
+      <tr *ngIf="noPlayerData">
         <td>
           Games Played: {{ totalGames }} <br />
           Win rate: {{ winLossPercent }}%

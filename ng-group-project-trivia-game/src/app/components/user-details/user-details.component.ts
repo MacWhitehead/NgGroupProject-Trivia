@@ -19,7 +19,7 @@ export class UserDetailsComponent {
   displayName: any;
   totalGames: any;
   questionsAnswered: any;
-  noPlayerData = false;
+  noPlayerData = true;
 
   constructor(
     public hostService: HostService,
@@ -78,15 +78,15 @@ export class UserDetailsComponent {
     this.totalGames = this.userData.stats.gamesPlayed;
     this.questionsAnswered = this.userData.stats.questionsAnswered;
     this.winLossPercent = (wins / this.totalGames) * 100;
+    console.log(this.winLossPercent)
+    console.log(correctAnswers)
     this.correctIncorrectPercent =
       (correctAnswers / this.questionsAnswered) * 100;
     this.bestCategory = this.getBestCategory();
     this.worstCategory = this.getWorstCategory();
     if(this.totalGames == 0) {
-      this.noPlayerData = true;
-    }
-
-    if (this.bestCategory == this.worstCategory) {
+      this.noPlayerData = false;
+    } else if (this.bestCategory == this.worstCategory) {
       this.worstCategory = 'Best and worst category currently match, play more games to update';
     }
     this.photoURL = this.userData.photoURL;
