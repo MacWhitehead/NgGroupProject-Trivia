@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Player } from 'src/app/interfaces/player';
+import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { HostService } from 'src/app/services/host.service';
 import { AuthService } from '../login/auth.service';
 
@@ -13,15 +12,18 @@ export class UserDetailsComponent {
   winLossPercent: number = 0;
   correctIncorrectPercent: number = 0;
   userData: any;
-  // categoryData: any[] = [];
   categoryData: any;
-  bestCategory: '';
-  worstCategory: '';
+  bestCategory: any;
+  worstCategory: any;
+  photoURL: any;
+  displayName: any;
+  totalGames: any;
+  questionsAnswered: any;
 
   constructor(
     public hostService: HostService,
     public authService: AuthService,
-    public afs: AngularFirestore, 
+    public afs: AngularFirestore
   ) {}
 
   ngOnInit(): void {
@@ -29,39 +31,61 @@ export class UserDetailsComponent {
   }
 
   getPlayerData() {
-   let playerData = this.afs.collection('users', ref => ref.where("id", "==", this.hostService.hostPlayer.id))
-   playerData.snapshotChanges().subscribe(res => {
-    this.userData = res[0].payload.doc.data();
-    this.getPercentages();
-     console.log(res[0].payload.doc.data())
-   })
+    let playerData = this.afs.collection('users', (ref) =>
+      ref.where('id', '==', this.hostService.hostPlayer.id)
+    );
+    playerData.snapshotChanges().subscribe((res) => {
+      this.userData = res[0].payload.doc.data();
+      this.assignData();
+    });
   }
 
   getRightQuestionCount() {
     let questionsRight = this.userData.stats.questionsRight;
-    console.log(questionsRight)
     let count = 0;
-    for(let i = 0; i < questionsRight.length; i++) {
+    for (let i = 0; i < questionsRight.length; i++) {
       count += questionsRight[i].count;
-      this.categoryData.push([questionsRight[i].count, questionsRight[i].category])
     }
     return count;
   }
 
-  // getCategories() {
+  getBestCategory() {
+    let questionsRight = this.userData.stats.questionsRight;
+    let best = { category: '', count: 0 };
+    for (let i = 0; i < questionsRight.length; i++) {
+      if (questionsRight[i].count > best.count) {
+        best = questionsRight[i];
+      }
+      return best.category;
+    }
+  }
 
-  // }
+  getWorstCategory() {
+    let questionsWrong = this.userData.stats.questionsWrong;
+    let worst = { category: '', count: 0 };
+    for (let i = 0; i < questionsWrong.length; i++) {
+      if (questionsWrong[i].count > worst.count) {
+        worst = questionsWrong[i];
+      }
+      return worst.category;
+    }
+  }
 
-  getPercentages() {
+  assignData() {
     let wins = this.userData.stats.gamesWon;
-    let totalGames = this.userData.stats.gamesPlayed;
-    let questionTotal = this.userData.stats.questionsAnswered;
     let correctAnswers = this.getRightQuestionCount();
-    //Need a function to calculate worst and best category.
-    this.winLossPercent = (wins / totalGames) * 100;
-    this.correctIncorrectPercent = (correctAnswers / questionTotal) * 100;
-    console.log(this.winLossPercent, this.correctIncorrectPercent);
-    console.log(questionTotal, correctAnswers)
-    console.log(this.categoryData)
+    this.totalGames = this.userData.stats.gamesPlayed;
+    this.questionsAnswered = this.userData.stats.questionsAnswered;
+    this.winLossPercent = (wins / this.totalGames) * 100;
+    this.correctIncorrectPercent =
+      (correctAnswers / this.questionsAnswered) * 100;
+    this.bestCategory = this.getBestCategory();
+    this.worstCategory = this.getWorstCategory();
+    if (this.bestCategory == this.worstCategory) {
+      this.bestCategory = 'Play more games for more accurate data';
+      this.worstCategory = '';
+    }
+    this.photoURL = this.userData.photoURL;
+    this.displayName = this.userData.displayName;
   }
 }
