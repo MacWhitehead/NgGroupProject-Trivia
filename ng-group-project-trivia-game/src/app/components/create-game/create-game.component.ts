@@ -15,6 +15,7 @@ export class CreateGameComponent implements OnInit {
   errorMessage: string;
   onePlayer: boolean = false;
   formValid = true;
+  canSubmit: boolean;
 
   selectedFriends: any[] = [];
   existingUsers: any[] = [];
@@ -78,6 +79,7 @@ export class CreateGameComponent implements OnInit {
     this.getDropdownData();
     console.log(this.hostService.nonHostPlayers)
     this.existingUsers = this.hostService.nonHostPlayers.map(player => player.displayName)
+    this.canSubmit = true;
   }
 
   getDropdownData() {
@@ -122,6 +124,7 @@ export class CreateGameComponent implements OnInit {
     }
 
   submitForm() {
+    this.canSubmit = false;
     console.log(this.selectedFormValues);
     this.setGameData(this.selectedFormValues);
   }
@@ -139,7 +142,7 @@ export class CreateGameComponent implements OnInit {
         this.gameController.addPlayer(this.hostService.hostPlayer);
         console.log(this.hostService.hostPlayer)
       } else {
-        console.log(this.hostService.nonHostPlayers)
+
         let player = this.hostService.nonHostPlayers.find(p => p.displayName === data[4][i-1])
         this.gameController.addPlayer(player)
       }

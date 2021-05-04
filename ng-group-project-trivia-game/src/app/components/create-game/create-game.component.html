@@ -101,7 +101,7 @@
       </mat-form-field>
       <mat-error *ngIf="validQuestionTotal">{{ errorMessage }}</mat-error>
 
-      <button
+      <button *ngIf="canSubmit"
         mat-raised-button
         type="submit"
         [disabled]="formValid"

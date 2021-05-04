@@ -16,7 +16,8 @@ export class PlayerService {
         let index = p.stats.questionsRight.findIndex(
           (i) => i.category === a.category
         );
-
+        console.log(index)
+        console.log(p.stats)
         p.stats.questionsWrong[index].count += 1;
         p.stats.questionsAnswered += 1;
       } //IF QUESTIONS RIGHT DOESNT CONTAIN AN EXISTING ENTRY WITH THAT CATEGORY, CREATE ENTRY WITH VALUE 1
