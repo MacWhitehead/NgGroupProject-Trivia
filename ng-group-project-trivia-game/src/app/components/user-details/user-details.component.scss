@@ -1,6 +1,17 @@
-mat-card {
-  width: auto;
-  height: auto;
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.main-card {
+  margin: auto;
+  margin-top: 30px;
+}
+
+.player-stats-card {
+  margin: auto;
 }
 h1 {
   vertical-align: top;
@@ -13,13 +24,13 @@ th {
 }
 
 th {
-  padding: 8px;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%;
   table-layout: fixed;
 }
 
