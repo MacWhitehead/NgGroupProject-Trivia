@@ -88,4 +88,12 @@ export class UserDetailsComponent {
     this.photoURL = this.userData.photoURL;
     this.displayName = this.userData.displayName;
   }
+
+  calculateWinRate(){
+    let wins = this.userData.stats.gamesWon;
+    let losses = this.userData.stats.gamesLost;
+    let total = wins + losses;
+    let winLossPercent = wins/total;
+    console.log(winLossPercent)
+  }
 }
