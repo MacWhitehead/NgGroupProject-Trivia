@@ -1,9 +1,8 @@
 <mat-card>
   <mat-card-header>
-    <img mat-card-avatar src="{{ userData.photoURL}}" alt="User Photo" />
-    <h1>{{ userData.displayName }} Details</h1>
+    <img mat-card-avatar src="{{ photoURL }}" alt="User Photo" />
+    <h1>{{ displayName }} Details</h1>
   </mat-card-header>
-  <p>{{userData | json}}</p>
   <mat-card>
     <table>
       <tr>
@@ -13,7 +12,7 @@
       </tr>
       <tr>
         <td>
-          Games Played: {{ userData.stats.gamesPlayed }} <br />
+          Games Played: {{ totalGames }} <br />
           Win rate: {{ winLossPercent }}%
           <mat-progress-spinner
             value="{{ winLossPercent }}"
@@ -24,7 +23,7 @@
           </mat-progress-spinner>
         </td>
         <td>
-          Questions Answered: {{ userData.stats.questionsAnswered }}
+          Questions Answered: {{ questionsAnswered }}
           <br />
           Percent of questions correct: {{ correctIncorrectPercent }}%
           <mat-progress-spinner
@@ -38,11 +37,11 @@
         <td class="highlights">
           <span class="boldText">Best category:</span>
           <br />
-          {{ userData.stats.bestCategory }} <br />
+          {{ bestCategory }} <br />
           <br />
           <span class="boldText">Worst category:</span>
           <br />
-          {{ userData.stats.worstCategory }}
+          {{ worstCategory }}
         </td>
       </tr>
     </table>
