@@ -19,6 +19,7 @@ export class UserDetailsComponent {
   displayName: any;
   totalGames: any;
   questionsAnswered: any;
+  noPlayerData = false;
 
   constructor(
     public hostService: HostService,
@@ -81,9 +82,12 @@ export class UserDetailsComponent {
       (correctAnswers / this.questionsAnswered) * 100;
     this.bestCategory = this.getBestCategory();
     this.worstCategory = this.getWorstCategory();
+    if(this.totalGames == 0) {
+      this.noPlayerData = true;
+    }
+
     if (this.bestCategory == this.worstCategory) {
-      this.bestCategory = 'Play more games for more accurate data';
-      this.worstCategory = '';
+      this.worstCategory = 'Best and worst category currently match, play more games to update';
     }
     this.photoURL = this.userData.photoURL;
     this.displayName = this.userData.displayName;
