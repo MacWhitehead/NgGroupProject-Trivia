@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -111,6 +112,7 @@ export class CreateGameComponent implements OnInit {
   isFormValid() {
     console.log('Called!');
     console.log(this.selectedFormValues)
+    this.formValid = true;
     this.selectedFormValues = [];
     this.selectedFormValues.push(
       this.selectedCount,
@@ -120,7 +122,7 @@ export class CreateGameComponent implements OnInit {
       this.selectedFriends,
       this.selectQuestionCount
     );
-    if (!this.selectedFormValues.some((item) => item == undefined)) {
+    if (this.selectedFormValues[4].length === this.selectedFormValues[0] - 1 && !this.selectedFormValues.some((item) => item == undefined)){
       this.formValid = false;
     }
     }

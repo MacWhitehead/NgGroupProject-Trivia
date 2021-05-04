@@ -1,5 +1,9 @@
-<div class="flex-answer-container">
-  <mat-card class="player-header" *ngIf="isGameStarted" [style.background-color]="colors[players.indexOf(activePlayer)]">
+<div *ngIf="!isGameOver()" class="flex-answer-container">
+  <mat-card
+    class="player-header"
+    *ngIf="isGameStarted"
+    [style.background-color]="colors[players.indexOf(activePlayer)]"
+  >
     <mat-card-content>
       <h2>Active Player:</h2>
       <div class="flex-answer-container">
@@ -12,7 +16,7 @@
       </div>
       <h2>Category:</h2>
       <h3>{{ activeQuestion.category }}</h3>
-      <h2>Question: {{turnNumber+1}}/{{questions[0].length}}</h2>
+      <h2>Question: {{ turnNumber + 1 }}/{{ questions[0].length }}</h2>
       <p [innerHTML]="displayCurrentPlayerScore()"></p>
       <p [innerHTML]="whoIsWinning()"></p>
     </mat-card-content>
@@ -85,4 +89,17 @@
   </mat-card>
 </div>
 
-<div *ngIf="isGameOver()"><button mat-button (click)="goToUserDetails()">End Game</button></div>
+<div *ngIf="isGameOver()" class="flex-answer-container center">
+  <mat-card class="player-stats">
+    <mat-card-title>GAME RESULTS</mat-card-title>
+    <mat-card-content>
+    <div *ngFor="let player of players; let i = index;">
+      <mat-card [style.background-color]="colors[i]">{{player.displayName}} : {{tempScore[i]}} PTS</mat-card>
+    </div>
+  </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="goToUserDetails()">End Game</button>
+    </mat-card-actions>
+  </mat-card>
+ 
+</div>
