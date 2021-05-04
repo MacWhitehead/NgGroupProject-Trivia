@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginCheckGuard } from 'src/app/login-check.guard';
 import { HostService } from 'src/app/services/host.service';
 
 @Component({
@@ -15,7 +14,6 @@ export class NavBarComponent implements OnInit {
   constructor(
     private router: Router,
     public hostService: HostService,
-    public loginCheckGuard: LoginCheckGuard
     ) {
     }
 
@@ -45,12 +43,8 @@ export class NavBarComponent implements OnInit {
     this.hostService.allPlayers = [];
 
     this.hostService.userLoggedIn = false
-    
+
     this.router.navigate(['login-page']) 
-    // console.log(this.allPlayers)
-  //   this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
-  //     this.router.navigate(['login-page']);
-  // }); 
   
 
   }
