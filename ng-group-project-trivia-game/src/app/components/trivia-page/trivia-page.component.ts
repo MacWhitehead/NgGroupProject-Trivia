@@ -18,6 +18,7 @@ export class TriviaPageComponent implements OnInit {
   players: Player[] = [];
   questions: any[] = [];
   isGameStarted: boolean;
+  tempScore: any[] = [];
 
   constructor(public gameService: GameControllerService, public playerService: PlayerService, hostService: HostService) {}
 
@@ -41,6 +42,10 @@ export class TriviaPageComponent implements OnInit {
     this.activeQuestion = this.gameService.activeQuestion;
     this.players = this.gameService.players;
     this.isGameStarted = this.gameService.isGameStarted;
+    
+    for (let i = 0; i < this.players.length; i++){
+      this.tempScore.push(0)
+    }
   }
   //runs nextQuestion from game-controller service and pulls the active player and active question values
   nextQuestion(): void {
@@ -79,11 +84,14 @@ export class TriviaPageComponent implements OnInit {
 
   calculateScore(p: Player[], q:any, a: any) {
     let currentPlayerIndex = this.players.indexOf(this.activePlayer);
+    if (q.correct_answer === a.value){
+      this.tempScore[currentPlayerIndex] += 1;
+    }
     this.players[currentPlayerIndex] = this.playerService.calculateScore(p, q, a);
   }
 
   displayCurrentPlayerScore(){
-    let score = this.activePlayer.stats.questionsRight.length;
+    let score = this.tempScore[this.players.indexOf(this.activePlayer)];
     return `Current Score: ${score}/${this.questions[0].length}` 
   }
 
@@ -111,7 +119,7 @@ export class TriviaPageComponent implements OnInit {
   }
 
   setColors(): void{
-    let colorsArray= ['#FF00000', '#FF7700', '#FFEA00', '#91FF00', '#00FF15', '#00A6FF', '#0062FF', '#9900FF', '#FB0FF'];
+    let colorsArray= ['#FF0000', '#FF7700', '#FFEA00', '#91FF00', '#00FF15', '#00A6FF', '#0062FF', '#9900FF', '#FB00FF'];
     let count = this.gameService.players.length;
     for (let i = 0; i < count; i++){
       let colorIndex = Math.floor(Math.random()*colorsArray.length);

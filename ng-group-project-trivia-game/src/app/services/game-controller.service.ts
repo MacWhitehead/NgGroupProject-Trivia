@@ -32,6 +32,7 @@ export class GameControllerService {
 
   addPlayer(p: any) {
     this.players.push(p);
+    
   }
   //runs the getQuestions function from questionsService and saves the results to the questions variable array
   getQuestions(params: any): void {
