@@ -1,4 +1,4 @@
-<div *ngIf="!isGameOver()" class="flex-answer-container">
+<div *ngIf="!isGameOver()" class="main-container">
   <mat-card
     class="player-header"
     *ngIf="isGameStarted"
@@ -89,10 +89,11 @@
   </mat-card>
 </div>
 
-<div *ngIf="isGameOver()" class="flex-answer-container center">
+<div *ngIf="isGameOver()" class="center">
   <mat-card class="player-stats">
     <mat-card-title>GAME RESULTS</mat-card-title>
     <mat-card-content>
+      <h2>{{whoIsWinning()}}</h2>
     <div *ngFor="let player of players; let i = index;">
       <mat-card [style.background-color]="colors[i]">{{player.displayName}} : {{tempScore[i]}} PTS</mat-card>
     </div>

@@ -80,12 +80,11 @@ export class GameControllerService {
   startGame(): void {
     if (this.players.length > 0) {
       this.isGameStarted = true;
-    }
-    this.activePlayer = this.players[0];
+      this.activePlayer = this.players[0];
     let indexOfPlayer = this.players.indexOf(this.activePlayer);
     this.activeQuestion = this.questions[indexOfPlayer][0];
-
     this.turnNumber = 0;
+    }
     
   }
 
@@ -211,6 +210,13 @@ export class GameControllerService {
    this.players.forEach(p => {
     this.afs.collection('users').doc(p.id).update({stats: p.stats});
    })
+  }
+
+  clearPreviousGameData(){
+    this.players = [];
+    this.questions = [];
+    this.gameCompleted = false;
+    this.isGameStarted = false;
   }
 }
 
