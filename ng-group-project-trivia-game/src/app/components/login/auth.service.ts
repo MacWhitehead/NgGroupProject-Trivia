@@ -8,6 +8,8 @@ import {
 } from '@angular/fire/firestore';
 import { User } from '../../interfaces/user';
 import { Observable} from 'rxjs';
+import { HostService } from 'src/app/services/host.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -23,6 +25,7 @@ export class AuthService {
     displayName: '',
     email: '',
     photoURL: '',
+    id: '',
     stats: {
       gamesPlayed: 0,
       gamesWon: 0,
@@ -35,7 +38,12 @@ export class AuthService {
     }
   };
 
-  constructor(public afs: AngularFirestore, private afAuth: AngularFireAuth) {
+  constructor(
+    public afs: AngularFirestore,
+     private afAuth: AngularFireAuth,
+     public hostService: HostService,
+     private router: Router
+     ) {
     this.users = this.afs.collection('users').valueChanges();
     this.usersCollection = this.afs.collection('users');
   }
@@ -44,17 +52,13 @@ export class AuthService {
     return this.users;
   }
 
-  clearHost() {
-    this.host.displayName = ''
-    this.host.email = ''
-    this.host.photoURL = '' 
-  }
-
   addUser() {
     this.usersCollection.add(this.host)
     .then(docRef => {
-      this.usersCollection.doc(docRef.id).update({id: docRef.id})
-      // console.log(`New document's id: ${docRef.id}`);
+      this.usersCollection.doc(docRef.id).update({id: docRef.id});
+      this.host.id = docRef.id
+      this.hostService.hostPlayer.id = docRef.id
+      this.router.navigate(['user-details']);
     })
   }
 

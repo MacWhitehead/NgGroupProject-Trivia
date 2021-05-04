@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
                
               },
             });
-            this.hostService.userLoggedIn = true
           }
         });
         // console.log(this.hostService.hostPlayer)
@@ -50,11 +49,11 @@ export class LoginComponent implements OnInit {
         console.log(
           `New user added to database :) ${this.authService.host.displayName}`
         );
-        this.authService.addUser();
         this.hostService.setHostPlayer({
           displayName: this.authService.host.displayName,
           email: this.authService.host.email,
           photoURL: this.authService.host.photoURL,
+          id: '',
           stats: {
             gamesPlayed: 0,
             gamesWon: 0,
@@ -66,10 +65,9 @@ export class LoginComponent implements OnInit {
             worstCategory: '',
           },
         })
+        this.authService.addUser();
         // console.log(this.hostService.hostPlayer)
         // console.log(this.hostService.nonHostPlayers);
-        this.hostService.userLoggedIn = true
-        this.router.navigate(['user-details']);
       }
     });
   }

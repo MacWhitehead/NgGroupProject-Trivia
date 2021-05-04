@@ -26,6 +26,7 @@ export class HostService {
     displayName: '',
     email: '',
     photoURL: '',
+    id: '',
     stats: {
       gamesPlayed: 0,
       gamesWon: 0,

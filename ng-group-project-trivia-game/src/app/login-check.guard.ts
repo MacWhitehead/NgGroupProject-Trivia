@@ -17,7 +17,6 @@ export class LoginCheckGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
       if(!this.hostService.userLoggedIn) {
-        console.log(this.hostService.userLoggedIn)
         this.router.navigateByUrl('')
         return false;
       } else {
