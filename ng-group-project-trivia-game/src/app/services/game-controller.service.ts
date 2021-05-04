@@ -23,6 +23,7 @@ export class GameControllerService {
   questions: any[] = [];
   isGameStarted: boolean;
   winning: any;
+  gameCompleted: boolean = false;
 
   constructor(
     public questionsService: QuestionsService,
@@ -48,6 +49,7 @@ export class GameControllerService {
         }
       });
     }
+   
   }
   //loops through all questions and puts correct answers into an array, shuffles them and adds the shuffled array as a property to each question
   combineAnswers(questions: any) {
@@ -84,7 +86,7 @@ export class GameControllerService {
     this.activeQuestion = this.questions[indexOfPlayer][0];
 
     this.turnNumber = 0;
-   
+    
   }
 
   nextQuestion(): void {
@@ -113,6 +115,7 @@ export class GameControllerService {
       currentPlayer === lastPlayer
     ) {
       this.updatePlayerData(this.players);
+      this.gameCompleted = true;
     } else if (
       /* ----- IF LAST PLAYER IN ARRAY AND NOT LAST QUESTION IN GAME, NEXT PLAYER IS FIRST PLAYER ----- */
       currentPlayer === lastPlayer &&
@@ -208,7 +211,6 @@ export class GameControllerService {
    this.players.forEach(p => {
     this.afs.collection('users').doc(p.id).update({stats: p.stats});
    })
-   this.router.navigate(['user-details']);
   }
 }
 

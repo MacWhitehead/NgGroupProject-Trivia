@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { GameControllerService } from 'src/app/services/game-controller.service';
 import { HostService } from 'src/app/services/host.service';
@@ -73,6 +74,7 @@ export class CreateGameComponent implements OnInit {
   constructor(
     public hostService: HostService,
     public gameController: GameControllerService,
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -124,9 +126,9 @@ export class CreateGameComponent implements OnInit {
     }
 
   submitForm() {
-    this.canSubmit = false;
     console.log(this.selectedFormValues);
     this.setGameData(this.selectedFormValues);
+    this.canSubmit = false;
   }
 
   setGameData(data: any[]): void{

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HostService } from 'src/app/services/host.service';
 import { Player } from '../../interfaces/player';
 import { GameControllerService } from '../../services/game-controller.service';
@@ -21,7 +22,7 @@ export class TriviaPageComponent implements OnInit {
   tempScore: any[] = [];
   turnNumber: any;
 
-  constructor(public gameService: GameControllerService, public playerService: PlayerService, hostService: HostService) {}
+  constructor(public gameService: GameControllerService, public playerService: PlayerService, hostService: HostService, public router: Router) {}
 
   ngOnInit(): void {
     //getQuestions service logic currently depends on having each property defined in the parameter. "any" value is take as empty string
@@ -135,5 +136,15 @@ export class TriviaPageComponent implements OnInit {
       colorsArray = colorsArray.filter(c => c != colorsArray[colorIndex]);
     }
     console.log(this.colors)
+  }
+
+  isGameOver(){
+    if (this.gameService.gameCompleted === true){
+      return true;
+    } else return false;
+  }
+
+  goToUserDetails(){
+    this.router.navigate(['user-details']);
   }
 }
