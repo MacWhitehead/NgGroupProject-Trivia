@@ -77,6 +77,7 @@ export class UserDetailsComponent {
     let wins = this.userData.stats.gamesWon;
     let correctAnswers = this.getRightQuestionCount();
     this.totalGames = this.userData.stats.gamesPlayed;
+    console.log(this.totalGames)
     this.questionsAnswered = this.userData.stats.questionsAnswered;
     this.winLossPercent = (wins / this.totalGames) * 100;
     // console.log(this.winLossPercent)
