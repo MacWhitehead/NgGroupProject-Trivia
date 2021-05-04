@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
                
               },
             });
+            this.hostService.userLoggedIn = true
           }
         });
         // console.log(this.hostService.hostPlayer)
@@ -67,6 +68,7 @@ export class LoginComponent implements OnInit {
         })
         // console.log(this.hostService.hostPlayer)
         // console.log(this.hostService.nonHostPlayers);
+        this.hostService.userLoggedIn = true
         this.router.navigate(['user-details']);
       }
     });
