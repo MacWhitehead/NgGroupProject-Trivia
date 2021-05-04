@@ -12,6 +12,7 @@
       </div>
       <h2>Category:</h2>
       <h3>{{ activeQuestion.category }}</h3>
+      <h2>Question: {{turnNumber+1}}/{{questions[0].length}}</h2>
       <p [innerHTML]="displayCurrentPlayerScore()"></p>
       <p [innerHTML]="whoIsWinning()"></p>
     </mat-card-content>

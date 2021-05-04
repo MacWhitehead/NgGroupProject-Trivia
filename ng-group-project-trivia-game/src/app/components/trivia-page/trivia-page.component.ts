@@ -19,6 +19,7 @@ export class TriviaPageComponent implements OnInit {
   questions: any[] = [];
   isGameStarted: boolean;
   tempScore: any[] = [];
+  turnNumber: any;
 
   constructor(public gameService: GameControllerService, public playerService: PlayerService, hostService: HostService) {}
 
@@ -26,6 +27,7 @@ export class TriviaPageComponent implements OnInit {
     //getQuestions service logic currently depends on having each property defined in the parameter. "any" value is take as empty string
     this.startGame();
     this.setColors();
+    this.turnNumber = 0;
   }
   //Pushes a player object based on Player interface layout to players variable
   
@@ -52,6 +54,7 @@ export class TriviaPageComponent implements OnInit {
     this.gameService.nextQuestion();
     this.activePlayer = this.gameService.activePlayer;
     this.activeQuestion = this.gameService.activeQuestion;
+    this.turnNumber = this.gameService.turnNumber;
     this.resetTurn();
   }
   //runs setSelected from game-controller service and pulls the selectedAnswer and canSubmit values
@@ -92,29 +95,34 @@ export class TriviaPageComponent implements OnInit {
 
   displayCurrentPlayerScore(){
     let score = this.tempScore[this.players.indexOf(this.activePlayer)];
-    return `Current Score: ${score}/${this.questions[0].length}` 
+    return `Current Score: ${score} pts` 
   }
 
   whoIsWinning(){
-    let winning = this.players[0];
+    let winning = this.tempScore[0];
     let tieArray = [];
     
-    this.players.forEach(p => {
-      if (p.stats.questionsRight.length > winning.stats.questionsRight.length){
-        winning = p;
-        tieArray[0] = p;
-      } else if (p.stats.questionsRight.length === winning.stats.questionsRight.length){
-        tieArray.push(p);
+    for (let i = 0; i < this.tempScore.length; i++){
+      if (i === 0){
+        tieArray = [this.players[i]]
+      }else if ( i > 0){
+        if (this.tempScore[i] > winning){
+          winning = this.tempScore[i];
+          tieArray = [this.players[i]]
+        } else if (this.tempScore[i] === winning){
+          tieArray.push(this.players[i])
+        }
       }
-    })
+    }
+    this.gameService.winning = tieArray;
     if (tieArray.length > 1){
       if (tieArray.length > 2){
-        return `It's a tie between ${tieArray[0].displayName}, ${tieArray[1].displayName} and ${tieArray[2].displayName}!`
+        return `Tie: ${tieArray[0].displayName}, ${tieArray[1].displayName} and ${tieArray[2].displayName}!`
       } else {
-        return `It's a tie between ${tieArray[0].displayName} and ${tieArray[1].displayName}!`
+        return `Tie: ${tieArray[0].displayName} and ${tieArray[1].displayName}!`
       }
     } else {
-      return `${winning.displayName} is currently in the lead!`
+      return `Winning: ${tieArray[0].displayName}`
     } 
   }
 

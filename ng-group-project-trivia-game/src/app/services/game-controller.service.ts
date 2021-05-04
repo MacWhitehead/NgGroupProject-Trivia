@@ -5,7 +5,7 @@ import { QuestionsService } from '../services/questions.service';
 import { Player } from '../interfaces/player';
 import { Router } from '@angular/router';
 import { AngularFirestore} from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+
 
 import { AuthService } from '../components/login/auth.service';
 @Injectable({
@@ -22,6 +22,7 @@ export class GameControllerService {
   players: Player[] = [];
   questions: any[] = [];
   isGameStarted: boolean;
+  winning: any;
 
   constructor(
     public questionsService: QuestionsService,
@@ -199,22 +200,7 @@ export class GameControllerService {
   }
 
   whoWon() {
-    let winning = this.players[0];
-    console.log(this.players);
-    let tieArray = [];
-    this.players.forEach((p) => {
-      if (p.stats.questionsRight.length > winning.stats.questionsRight.length) {
-        winning = p;
-        tieArray[0] = p;
-      } else if (
-        p.stats.questionsRight.length === winning.stats.questionsRight.length
-      ) {
-        tieArray.push(p);
-      }
-    });
-    if (tieArray.length > 1) {
-      return tieArray;
-    } else return [winning];
+    return this.winning;
   }
 
 
