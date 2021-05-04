@@ -82,6 +82,7 @@ export class CreateGameComponent implements OnInit {
     this.getDropdownData();
     console.log(this.hostService.nonHostPlayers)
     this.existingUsers = this.hostService.nonHostPlayers.map(player => player.displayName)
+    this.gameController.clearPreviousGameData();
     this.canSubmit = true;
   }
 

@@ -26,9 +26,11 @@ export class TriviaPageComponent implements OnInit {
 
   ngOnInit(): void {
     //getQuestions service logic currently depends on having each property defined in the parameter. "any" value is take as empty string
+    this.turnNumber = 0;
+    this.tempScore = [];
     this.startGame();
     this.setColors();
-    this.turnNumber = 0;
+   
   }
   //Pushes a player object based on Player interface layout to players variable
   

@@ -8,6 +8,13 @@
     flex-direction: row;
     justify-content: flex-start;
 }
+
+.main-container{
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
 .questions-card {
     width: 70%;
 }
@@ -49,5 +56,5 @@
 .center{
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin: 20px;
 }
