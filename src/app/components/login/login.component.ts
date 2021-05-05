@@ -18,9 +18,6 @@ export class LoginComponent implements OnInit {
     this.buttonRendered = false;
     this.authService.GoogleAuthLogin().then(() => {
       if (this.emails.includes(this.authService.host.email)) {
-        console.log(
-          `Found you! You're signed in as ${this.authService.host.displayName} :)`
-        );
         this.users.forEach((x) => {
           if (x.email == this.authService.host.email) {
             this.hostService.setHostPlayer({
@@ -44,9 +41,6 @@ export class LoginComponent implements OnInit {
         });
         this.router.navigate(['user-details']);
       } else {
-        console.log(
-          `New user added to database :) ${this.authService.host.displayName}`
-        );
         this.hostService.setHostPlayer({
           displayName: this.authService.host.displayName,
           email: this.authService.host.email,

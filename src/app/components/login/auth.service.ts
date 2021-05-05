@@ -70,8 +70,6 @@ export class AuthService {
         this.host.displayName = result.user.displayName;
         this.host.email = result.user.email;
         this.host.photoURL = result.user.photoURL;
-        // console.log(`${result.user.displayName} has successfully logged in!`);
-        // console.log(result.user);
       })
       .catch((error) => {
         console.log(error);
