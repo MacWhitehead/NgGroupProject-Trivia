@@ -14,10 +14,9 @@
         />
         <h3>{{ activePlayer.displayName }}</h3>
       </div>
-      <h2>Category:</h2>
-      <h3>{{ activeQuestion.category }}</h3>
+      <h2>Category: {{ activeQuestion.category }}</h2>
       <h2>Question: {{ turnNumber + 1 }}/{{ questions[0].length }}</h2>
-      <p [innerHTML]="displayCurrentPlayerScore()"></p>
+      <h2 [innerHTML]="displayCurrentPlayerScore()"></h2>
       <p [innerHTML]="whoIsWinning()"></p>
     </mat-card-content>
   </mat-card>
@@ -95,7 +94,7 @@
     <mat-card-content>
       <h2>{{whoIsWinning()}}</h2>
     <div *ngFor="let player of players; let i = index;">
-      <mat-card [style.background-color]="colors[i]">{{player.displayName}} : {{tempScore[i]}} PTS</mat-card>
+      <mat-card class="score" [style.background-color]="colors[i]">{{player.displayName}} : {{tempScore[i]}} PTS</mat-card>
     </div>
   </mat-card-content>
     <mat-card-actions>

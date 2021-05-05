@@ -97,7 +97,7 @@ export class TriviaPageComponent implements OnInit {
 
   displayCurrentPlayerScore(){
     let score = this.tempScore[this.players.indexOf(this.activePlayer)];
-    return `Current Score: ${score} pts` 
+    return `Score: ${score} pts` 
   }
 
   whoIsWinning(){
@@ -124,7 +124,7 @@ export class TriviaPageComponent implements OnInit {
         return `Tie: ${tieArray[0].displayName} and ${tieArray[1].displayName}!`
       }
     } else {
-      return `Winning: ${tieArray[0].displayName}`
+      return `Winner: ${tieArray[0].displayName}`
     } 
   }
 

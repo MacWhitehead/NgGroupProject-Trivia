@@ -20,6 +20,8 @@
     display: flex;
     justify-content: center;
     margin: 10px;
+    min-width: 90%;
+    max-width: 90%;
 }
 
 .questions-card {
@@ -58,10 +60,14 @@
 .player-stats {
     padding-right: 20px;
     margin-bottom: 10px;
+    min-width: 100%;
 }
 
 .center{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 20px;
 }
+

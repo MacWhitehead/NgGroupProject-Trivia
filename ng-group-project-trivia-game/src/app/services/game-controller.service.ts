@@ -187,8 +187,8 @@ export class GameControllerService {
         if (winner.some((w) => w.email === p.email)) {
           p.stats.gamesPlayed += 1;
         } else if (winner.filter((w) => w.email === p.email).length === 0) {
-          p.states.gamesPlayed += 1;
-          p.states.gamesLost += 1;
+          p.stats.gamesPlayed += 1;
+          p.stats.gamesLost += 1;
         }
       } else if (winner.length === 1 && pd.length === 1) {
         p.stats.gamesPlayed += 1;
