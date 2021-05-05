@@ -14,7 +14,7 @@
       <tr *ngIf="!noPlayerData">
         <td>
           Games Played: {{ totalGames }} <br />
-          Win rate: {{ winLossPercent }}%
+          Win rate: {{ winLossPercent | number : '1.2-2' }}%
           <mat-progress-spinner
             value="{{ winLossPercent }}"
             mode="determinate"
