@@ -30,7 +30,6 @@ export class TriviaPageComponent implements OnInit {
     this.tempScore = [];
     this.startGame();
     this.setColors();
-   
   }
   //Pushes a player object based on Player interface layout to players variable
   
@@ -137,7 +136,7 @@ export class TriviaPageComponent implements OnInit {
       this.colors.push(colorsArray[colorIndex]);
       colorsArray = colorsArray.filter(c => c != colorsArray[colorIndex]);
     }
-    console.log(this.colors)
+
   }
 
   isGameOver(){

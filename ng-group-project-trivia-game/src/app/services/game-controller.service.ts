@@ -173,7 +173,7 @@ export class GameControllerService {
   updatePlayerData(pd: any[]) {
     //calculate who won the game, if tie no win or loss is made for those that tied;
     let winner = this.whoWon();
-    console.log('WINNER IS: ', winner);
+   
     pd.forEach((p) => {
       if (winner.length === 1 && pd.length > 1) {
         if (winner.filter((w) => w.email === p.email).length > 0) {
@@ -194,7 +194,7 @@ export class GameControllerService {
         p.stats.gamesPlayed += 1;
       }
     });
-    console.log('updated pd with game values', pd);
+
 
     
     this.saveData()
