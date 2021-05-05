@@ -42,8 +42,6 @@ export class LoginComponent implements OnInit {
             });
           }
         });
-        // console.log(this.hostService.hostPlayer)
-        // console.log(this.hostService.nonHostPlayers);
         this.router.navigate(['user-details']);
       } else {
         console.log(
@@ -66,8 +64,6 @@ export class LoginComponent implements OnInit {
           },
         })
         this.authService.addUser();
-        // console.log(this.hostService.hostPlayer)
-        // console.log(this.hostService.nonHostPlayers);
       }
     });
   }
@@ -83,7 +79,6 @@ export class LoginComponent implements OnInit {
       this.users = users;
       this.emails = this.users.map((user) => user.email);
       this.hostService.allPlayers = users;
-      // console.log(this.hostService.allPlayers);
       this.buttonRendered = true;
     });
   }

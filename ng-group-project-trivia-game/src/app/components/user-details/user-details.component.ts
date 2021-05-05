@@ -32,7 +32,6 @@ export class UserDetailsComponent {
   }
 
   getPlayerData() {
-    console.log(this.hostService.hostPlayer.id)
     let playerData = this.afs.collection('users', (ref) =>
       ref.where('id', '==', this.hostService.hostPlayer.id)
     );
@@ -77,11 +76,8 @@ export class UserDetailsComponent {
     let wins = this.userData.stats.gamesWon;
     let correctAnswers = this.getRightQuestionCount();
     this.totalGames = this.userData.stats.gamesPlayed;
-    console.log(this.totalGames)
     this.questionsAnswered = this.userData.stats.questionsAnswered;
     this.winLossPercent = (wins / this.totalGames) * 100;
-    // console.log(this.winLossPercent)
-    // console.log(this.totalGames)
     this.correctIncorrectPercent =
       (correctAnswers / this.questionsAnswered) * 100;
     this.bestCategory = this.getBestCategory();
@@ -102,6 +98,5 @@ export class UserDetailsComponent {
     let losses = this.userData.stats.gamesLost;
     let total = wins + losses;
     let winLossPercent = wins/total;
-    console.log(winLossPercent)
   }
 }

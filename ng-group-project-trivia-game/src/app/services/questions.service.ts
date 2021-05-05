@@ -20,7 +20,6 @@ export class QuestionsService {
     } else {
       amount = '';
     }
-    console.log(params.category)
     if (params.category !== '') {
       category = 'category=' + params.category + '&';
     } else {
@@ -41,7 +40,6 @@ export class QuestionsService {
 
     //Build url suffix
     let apiUrl: string = `https://opentdb.com/api.php?${amount}${category}${difficulty}${type}`;
-    console.log(apiUrl)
     
     return this.http.get(apiUrl);
   }

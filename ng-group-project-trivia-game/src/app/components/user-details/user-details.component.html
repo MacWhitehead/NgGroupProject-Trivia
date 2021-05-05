@@ -3,8 +3,8 @@
     <img mat-card-avatar src="{{ photoURL }}" alt="User Photo" />
     <h1>{{ displayName }} Details</h1>
   </mat-card-header>
-  <mat-card class="player-stats-card">
-    <mat-error *ngIf="noPlayerData">You haven't played any games yet! Please click the plus icon to create a new game</mat-error>
+  <mat-error *ngIf="noPlayerData">You haven't played any games yet! Please click the plus icon to create a new game</mat-error>
+  <mat-card *ngIf="!noPlayerData" class="player-stats-card">
     <table>
       <tr>
         <th class="win-loss text-color">Win loss ratio</th>
@@ -26,7 +26,7 @@
         <td>
           Questions Answered: {{ questionsAnswered }}
           <br />
-          Percent of questions correct: {{ correctIncorrectPercent }}%
+          Percent of questions correct: {{ correctIncorrectPercent | number : '1.2-2' }}%
           <mat-progress-spinner
             style="margin: 0 auto"
             value="{{ correctIncorrectPercent }}"
