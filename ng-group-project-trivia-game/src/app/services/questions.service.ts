@@ -41,7 +41,6 @@ export class QuestionsService {
 
     //Build url suffix
     let apiUrl: string = `https://opentdb.com/api.php?${amount}${category}${difficulty}${type}`;
-    console.log(apiUrl)
     
     return this.http.get(apiUrl);
   }

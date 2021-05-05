@@ -80,7 +80,6 @@ export class CreateGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDropdownData();
-    console.log(this.hostService.nonHostPlayers)
     this.existingUsers = this.hostService.nonHostPlayers.map(player => player.displayName)
     this.gameController.clearPreviousGameData();
     this.canSubmit = true;
@@ -111,8 +110,6 @@ export class CreateGameComponent implements OnInit {
   }
 
   isFormValid() {
-    console.log('Called!');
-    console.log(this.selectedFormValues)
     this.formValid = true;
     this.selectedFormValues = [];
     this.selectedFormValues.push(
@@ -129,7 +126,6 @@ export class CreateGameComponent implements OnInit {
     }
 
   submitForm() {
-    console.log(this.selectedFormValues);
     this.setGameData(this.selectedFormValues);
     this.canSubmit = false;
   }
@@ -145,13 +141,11 @@ export class CreateGameComponent implements OnInit {
     for (let i = 0; i < playerCount; i++){
       if (i === 0){
         this.gameController.addPlayer(this.hostService.hostPlayer);
-        console.log(this.hostService.hostPlayer)
       } else {
 
         let player = this.hostService.nonHostPlayers.find(p => p.displayName === data[4][i-1])
         this.gameController.addPlayer(player)
       }
-      console.log(this.gameController.players)
     }
     
     if (difficulty == 'Any'){
@@ -175,5 +169,4 @@ export class CreateGameComponent implements OnInit {
         this.gameController.getQuestions(params)
       }
   }
-
 }
