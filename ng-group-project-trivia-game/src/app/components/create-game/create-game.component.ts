@@ -24,7 +24,6 @@ export class CreateGameComponent implements OnInit {
 
   selectedCount: number;
   setPlayerCount() {
-    console.log(this.selectedCount)
     if (this.selectedCount == 1) this.onePlayer = true;
     else this.onePlayer = false;
   }
