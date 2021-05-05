@@ -130,7 +130,7 @@ export class TriviaPageComponent implements OnInit {
   }
 
   setColors(): void{
-    let colorsArray= ['#FF0000', '#FF7700', '#FFEA00', '#91FF00', '#00FF15', '#00A6FF', '#0062FF', '#9900FF', '#FB00FF'];
+    let colorsArray= ['#FF0000', '#FF7700', '#FFEA00', '#91FF00', '#00FF15', '#00A6FF', '#0062FF', '#FB00FF'];
     let count = this.gameService.players.length;
     for (let i = 0; i < count; i++){
       let colorIndex = Math.floor(Math.random()*colorsArray.length);
